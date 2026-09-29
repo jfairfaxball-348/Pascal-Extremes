@@ -50,7 +50,6 @@ theorem padicVal_choose_le_of_common_suffix
       _ = p ^ (t + r + 1) := by
         rw [← pow_add]
         congr 1
-        omega
   have hlog : Nat.log p n < t + r + 1 :=
     (Nat.log_lt_iff_lt_pow hp.one_lt (Nat.ne_of_gt hnpos)).2 hnBound
   rw [padicVal_choose_eq_carryCount hkn hlog, carryCount]
@@ -80,6 +79,5 @@ theorem padicVal_choose_le_of_common_suffix
     F.card ≤ (Finset.Ico (t + 1) (t + r + 1)).card := hcard
     _ = r := by
       simp
-      omega
 
 end PascalExtremes
