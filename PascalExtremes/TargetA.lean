@@ -9,10 +9,10 @@ private lemma mul_lt_pow_succ_rP
     {p m : ℕ} (hp : p.Prime) (hm : 0 < m) :
     p * m < p ^ (rP p m + 1) := by
   have hmPow : m < p ^ rP p m := lt_pow_rP hp.one_lt
-  have := Nat.mul_lt_mul_left hp.pos hmPow
-  simpa [pow_succ, Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using this
+  have hmul := (Nat.mul_lt_mul_left hp.pos).2 hmPow
+  simpa [pow_succ, Nat.mul_comm, Nat.mul_left_comm, Nat.mul_assoc] using hmul
 
-/-- The leading-base-`p)-digit witness from Stage 3. Every admissible row
+/-- The leading-base-`p`-digit witness from Stage 3. Every admissible row
 contains a selected coefficient whose valuation is at most `rP p m`. -/
 theorem targetA_upper_witness
     {p m N : ℕ} (hp : p.Prime) (hm2 : 2 ≤ m) (hpm : ¬ p ∣ m)
@@ -21,10 +21,12 @@ theorem targetA_upper_witness
       padicValNat p (N.choose k) ≤ rP p m := by
   have hm : 0 < m := by omega
   rcases hrow.2 with ⟨q, hN⟩
+  have hmq : m < m * q := by
+    simpa [hN] using hrow.1
   have hq2 : 2 ≤ q := by
-    rw [hN] at hrow
-    have hmpos : 0 < m := hm
-    nlinarith
+    by_contra h
+    have hqLt2 : q < 2 := by omega
+    interval_cases q <;> simp_all
   let t := Nat.log p q
   let P := p ^ t
   let lam := q / P
@@ -60,12 +62,14 @@ theorem targetA_upper_witness
     mul_lt_pow_succ_rP hp hm
   by_cases hb0 : b = 0
   · by_cases hlam1 : lam = 1
-    · subst lam
-      have hqP : q = P := by simpa [hb0] using hqDecomp
+    · have hqP : q = P := by
+        rw [hb0, hlam1, mul_one, zero_add] at hqDecomp
+        exact hqDecomp
+      have hqPow : q = p ^ t := by simpa [P] using hqP
       have htpos : 0 < t := by
         by_contra ht
         have ht0 : t = 0 := Nat.eq_zero_of_not_pos ht
-        rw [ht0, pow_zero] at hqP
+        rw [ht0, pow_zero] at hqPow
         omega
       let t' := t - 1
       let k := m * p ^ t'
@@ -73,7 +77,7 @@ theorem targetA_upper_witness
         dsimp [t']
         omega
       have hqShift : q = p ^ t' * p := by
-        rw [hqP, htEq, pow_succ]
+        rw [hqPow, htEq, pow_succ]
       have hkAdm : Admissible N m k := by
         refine ⟨?_, ?_, ?_⟩
         · exact Nat.mul_pos hm (pow_pos hp.pos _)
@@ -93,7 +97,8 @@ theorem targetA_upper_witness
       exact padicVal_choose_le_of_common_suffix
         hp (lt_trans hm hrow.1) hkAdm.2.1.le
         (by exact pow_pos hp.pos _)
-        hNform hkform (by nlinarith [hp.two_le]) hpmul
+        hNform hkform (by nlinarith [hp.two_le])
+        (by simpa [Nat.mul_comm] using hpmul)
     · have hlam2 : 2 ≤ lam := by omega
       let k := m * P
       have hkAdm : Admissible N m k := by
@@ -112,9 +117,11 @@ theorem targetA_upper_witness
       have hs : m * lam < p ^ (rP p m + 1) := by
         have hle : m * lam ≤ m * (p - 1) :=
           Nat.mul_le_mul_left m (by omega)
+        have hpPred : p - 1 < p := by omega
+        have hlt0 : m * (p - 1) < m * p :=
+          (Nat.mul_lt_mul_left hm).2 hpPred
         have hlt : m * (p - 1) < p * m := by
-          have := hp.one_lt
-          nlinarith
+          simpa [Nat.mul_comm] using hlt0
         exact (hle.trans_lt hlt).trans hpmul
       exact padicVal_choose_le_of_common_suffix
         hp (lt_trans hm hrow.1) hkAdm.2.1.le
@@ -133,7 +140,7 @@ theorem targetA_upper_witness
     have hXLt : X < m := by
       dsimp [X]
       rw [Nat.div_lt_iff_lt_mul hPpos]
-      exact Nat.mul_lt_mul_left hm hbLt
+      exact (Nat.mul_lt_mul_left hm).2 hbLt
     have hkAdm : Admissible N m k := by
       refine ⟨Nat.mul_pos hm hbPos, ?_, dvd_mul_right m b⟩
       rw [hN]
@@ -142,7 +149,7 @@ theorem targetA_upper_witness
         rw [hqDecomp]
         have hPLamPos : 0 < P * lam := Nat.mul_pos hPpos hlamPos
         omega
-      exact Nat.mul_lt_mul_left hm hbq
+      exact (Nat.mul_lt_mul_left hm).2 hbq
     refine ⟨k, hkAdm, ?_⟩
     have hNform : N = u + P * (X + m * lam) := by
       rw [hN, hqDecomp]
@@ -160,9 +167,11 @@ theorem targetA_upper_witness
       calc
         X + m * lam < m + m * lam := Nat.add_lt_add_right hXLt _
         _ ≤ m + m * (p - 1) := Nat.add_le_add_left hmulLe _
-        _ = p * m := by
-          have hp1 : 1 ≤ p := hp.one_le
+        _ = m * p := by
+          rw [← Nat.mul_add]
+          congr 1
           omega
+        _ = p * m := Nat.mul_comm _ _
     have hs : X + m * lam < p ^ (rP p m + 1) :=
       hsltPm.trans hpmul
     exact padicVal_choose_le_of_common_suffix
