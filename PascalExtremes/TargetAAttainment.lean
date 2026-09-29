@@ -25,7 +25,7 @@ private theorem forced_extremal_carry
       (A * p ^ L + c) % p ^ (L - ell) = c := by
     rw [Nat.add_comm, Nat.add_mod,
       Nat.mod_eq_zero_of_dvd (dvd_mul_of_dvd_right hdivPow A),
-      zero_add, Nat.mod_eq_of_lt hc]
+      add_zero, Nat.mod_mod, Nat.mod_eq_of_lt hc]
   let u := k % p ^ (L - ell)
   let B := k / p ^ (L - ell)
   have huLe : u ≤ c := by
@@ -35,7 +35,7 @@ private theorem forced_extremal_carry
       p ^ L = p ^ (L - ell) * p ^ ell := by
     rw [← pow_add]
     congr 1
-    exact Nat.sub_add_cancel hellL
+    exact (Nat.sub_add_cancel hellL).symm
   have hNdiv :
       (A * p ^ L + c) / p ^ (L - ell) = A * p ^ ell := by
     have hform :
@@ -78,8 +78,10 @@ private theorem forced_extremal_carry
     rw [hmEq]
     exact Nat.add_le_add huLe hDBLe
   by_cases hz0 : u + D * B = 0
-  · have hu0 : u = 0 := by omega
-    have hDB0 : D * B = 0 := by omega
+  · have hu0 : u = 0 :=
+      Nat.eq_zero_of_add_eq_zero_left hz0
+    have hDB0 : D * B = 0 :=
+      Nat.eq_zero_of_add_eq_zero_right hz0
     have hB0 : B = 0 := by
       rcases Nat.mul_eq_zero.mp hDB0 with hD | hB
       · exact False.elim (Nat.ne_of_gt hDpos hD)
@@ -116,6 +118,7 @@ private theorem top_interval_lower_bound
     (hp : p.Prime) (hm : 0 < m)
     (hr2 : 2 ≤ r)
     (hrL : r ≤ L)
+    (h2rL : 2 * (r - 1) ≤ L)
     (hcP : c < p ^ (r - 1))
     (hmEq : m = c + p ^ (r - 1) * A)
     (hmods :
@@ -125,8 +128,10 @@ private theorem top_interval_lower_bound
     {k : ℕ} (hk : Admissible (A * p ^ L + c) m k) :
     r ≤ padicValNat p ((A * p ^ L + c).choose k) := by
   letI : Fact p.Prime := ⟨hp⟩
+  have hNpos : 0 < A * p ^ L + c :=
+    lt_trans hk.1 hk.2.1
   have hlog : Nat.log p (A * p ^ L + c) < L + 1 :=
-    (Nat.log_lt_iff_lt_pow hp.one_lt (by omega)).2 hNlt
+    (Nat.log_lt_iff_lt_pow hp.one_lt (Nat.ne_of_gt hNpos)).2 hNlt
   rw [padicVal_choose_eq_carryCount hk.2.1.le hlog, carryCount]
   let S := Finset.Icc (L + 1 - r) L
   let C := (Finset.Ico 1 (L + 1)).filter
@@ -145,8 +150,11 @@ private theorem top_interval_lower_bound
       dsimp [ell]
       omega
     have hcS : c < p ^ (L - ell) := by
+      have hsGe : r - 1 ≤ L - ell := by
+        rw [hsEq]
+        omega
       have hpowLe : p ^ (r - 1) ≤ p ^ (L - ell) :=
-        Nat.pow_le_pow_right hp.pos (by omega)
+        Nat.pow_le_pow_right hp.pos hsGe
       exact hcP.trans_le hpowLe
     have hcarry :
         CarryAt p (A * p ^ L + c) k (L - ell) :=
@@ -202,8 +210,10 @@ private theorem targetA_attainment_r1
     exact one_le_padicVal_choose_of_carry hp hk.2.1.le (by omega) hcarry
   obtain ⟨w, hw, hwUpper⟩ :=
     targetA_upper_witness hp hm2 hpm hrow
+  have hwUpper1 : padicValNat p ((m * p).choose w) ≤ 1 := by
+    simpa [hr] using hwUpper
   have hwEq : padicValNat p ((m * p).choose w) = 1 :=
-    Nat.le_antisymm hwUpper (hlower w hw)
+    Nat.le_antisymm hwUpper1 (hlower w hw)
   have hG :=
     padicVal_G_eq_of_lower_bound_of_witness hm hrow.1 hp
       hlower ⟨w, hw, hwEq⟩
@@ -245,7 +255,7 @@ private theorem targetA_attainment_rge2
     intro hc0
     apply hpm
     apply hPdivp.trans
-    rw [← Nat.dvd_iff_mod_eq_zero]
+    apply (Nat.dvd_iff_mod_eq_zero).2
     simpa [c] using hc0
   have hApos : 0 < A := by
     dsimp [A]
@@ -270,6 +280,11 @@ private theorem targetA_attainment_rge2
     have hmul : r ≤ Nat.totient m * r := by
       nlinarith
     omega
+  have h2rL : 2 * (r - 1) ≤ L := by
+    dsimp [L]
+    have hmul : r ≤ Nat.totient m * r := by
+      nlinarith
+    omega
   have hLgt : r - 1 < L := by omega
   have hcop : Nat.Coprime p m :=
     (hp.coprime_iff_not_dvd).2 hpm
@@ -277,7 +292,7 @@ private theorem targetA_attainment_rge2
     Nat.ModEq.pow_totient hcop
   have hblock : p ^ (Nat.totient m * r) ≡ 1 [MOD m] := by
     rw [pow_mul]
-    exact heuler.pow r
+    simpa using heuler.pow r
   have hmods :
       ∀ ell ≤ r - 1,
         p ^ (L - ell) ≡ p ^ (r - 1 - ell) [MOD m] := by
@@ -295,8 +310,10 @@ private theorem targetA_attainment_rge2
     have hcong : N ≡ m [MOD m] := by
       dsimp [N]
       have h := (hmodL.mul_left A).add_right c
-      rw [hmDecomp]
-      simpa [Nat.add_comm, Nat.mul_comm] using h
+      have hrhs : A * P + c = m := by
+        simpa [Nat.add_comm, Nat.mul_comm] using hmDecomp.symm
+      rw [hrhs] at h
+      exact h
     exact Nat.modEq_zero_iff_dvd.mp
       (hcong.trans (dvd_rfl.modEq_zero_nat))
   have hpowLt : P < p ^ L := by
@@ -305,7 +322,7 @@ private theorem targetA_attainment_rge2
   have hmLtN : m < N := by
     dsimp [N]
     rw [hmDecomp]
-    have hmul := Nat.mul_lt_mul_left hApos hpowLt
+    have hmul := (Nat.mul_lt_mul_left hApos).2 hpowLt
     nlinarith
   have hcL : c < p ^ L :=
     hcLt.trans_le (Nat.pow_le_pow_right hp.pos (by omega))
@@ -323,7 +340,7 @@ private theorem targetA_attainment_rge2
         r ≤ padicValNat p (N.choose k) := by
     intro k hk
     dsimp [N] at hk ⊢
-    apply top_interval_lower_bound hp hm hr2' hrL
+    apply top_interval_lower_bound hp hm hr2' hrL h2rL
       (by simpa [P] using hcLt)
       (by simpa [P] using hmDecomp)
       hmods
@@ -376,7 +393,7 @@ def extremalRows (p m : ℕ) : Set ℕ :=
 
 /-- Least extremal row. It is defined globally by well-ordering; Target A
 proves that the set is nonempty for the pairs considered in this project. -/
-def T (p m : ℕ) : ℕ :=
+noncomputable def T (p m : ℕ) : ℕ :=
   sInf (extremalRows p m)
 
 theorem extremalRows_nonempty
