@@ -79,9 +79,9 @@ private theorem forced_extremal_carry
     exact Nat.add_le_add huLe hDBLe
   by_cases hz0 : u + D * B = 0
   · have hu0 : u = 0 :=
-      Nat.eq_zero_of_add_eq_zero_left hz0
-    have hDB0 : D * B = 0 :=
       Nat.eq_zero_of_add_eq_zero_right hz0
+    have hDB0 : D * B = 0 :=
+      Nat.eq_zero_of_add_eq_zero_left hz0
     have hB0 : B = 0 := by
       rcases Nat.mul_eq_zero.mp hDB0 with hD | hB
       · exact False.elim (Nat.ne_of_gt hDpos hD)
