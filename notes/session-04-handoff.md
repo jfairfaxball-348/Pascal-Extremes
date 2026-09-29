@@ -8,7 +8,7 @@ This session stayed within Stage 4. No Lean, Palomar registration, paper writing
 
 The exact Stage-3 statements were audited in Wu's \(g(m,n)\) notation and in the project's row notation. Primary-source rechecks were completed for Wu and McTague, adjacent sources were rechecked, exact construction/minimality searches were rerun, and a renewed attempt was made to obtain the full Chung–Yang 2026 article.
 
-The detailed record is in \`notes/prior-art-audit-4.md\`.
+The detailed record is in `notes/prior-art-audit-4.md`.
 
 ## Confirmed prior-art boundaries
 
@@ -71,7 +71,7 @@ Continue **Stage 4 only**. Obtain an inspectable lawful copy of the Chung–Yang
 4. \(p^{2a}-p^a+1=\Phi_6(p^a)\);
 5. strict non-attainment at all smaller multipliers.
 
-Do not start Lean until the single authoritative Stage-4 gate in \`notes/prior-art-audit-4.md\` is revised to clear an exact theorem.
+Do not start Lean until the single authoritative Stage-4 gate in `notes/prior-art-audit-4.md` is revised to clear an exact theorem.
 
 ## Copy-paste prompt for the continuation session
 
