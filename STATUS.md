@@ -11,7 +11,7 @@ Date: 2026-09-29
   - McTague's Theorem Q (2015/2017) already proves the Target-A subcase p ≡ 1 (mod m), where r_p(m)=1.
   - McTague also gives the exact exceptional instance v_2(G(6;3))=2; since 6 is the first admissible row, T_2(3)=6 is not a new result.
   - No equivalent statement of the general higher maximum in Target A or the a>=2 least-row formula in Target B was located in the documented search.
-  - Chung–Yang, published 2026-09-27, is a very recent adjacent source on non-coprime lower indices and p^t+1 shapes; its full theorem text was subscription-only during Stage 2 and must be rechecked in Stage 4.
+  - Chung–Yang, published 2026-09-27, is a very recent adjacent source on non-coprime lower indices and p^t+1 shapes; its full theorem text was subscription-only during Stage 2 and was designated for mandatory Stage-4 recheck.
   - Full source/theorem/search details are in notes/prior-art-audit-2.md.
 - **Pilot reproduction: COMPLETE as a finite experimental check.**
   - experiments/pilot_reproduction.py implements a scalable Kummer borrow DP with explicit m|k, 0<k<N, and terminal-borrow checks.
@@ -29,7 +29,13 @@ Date: 2026-09-29
   - Attainment at p^(3a)+1 is proved by an exact Kummer residue count.
   - Strict non-attainment at every smaller admissible row is proved using an explicit leading-digit witness, with a fixed fallback multiplier p^(a-1) for the unique worst leading-digit pattern.
   - Full proof, failed approaches, endpoint checks, and the a=1 exclusion are in notes/proof.md.
-- **Stage 4 — final theorem-level uniqueness / novelty audit: NOT STARTED.**
+- **Stage 4 — final theorem-level uniqueness / novelty audit: AUDIT RUN; CLEARANCE WITHHELD.**
+  - Wu v2 and McTague v5 were rechecked directly against the exact Stage-3 statements.
+  - Target A's p≡1 mod m subcase and the (2,3,6) exception remain exact known overlaps.
+  - No equivalent theorem was located for the remaining general Target-A maximum/equality construction or for Target B, including the least multiplier p^(2a)-p^a+1=Phi_6(p^a) and strict lower-multiplier non-attainment.
+  - A renewed full-text search for Chung–Yang 2026 checked Springer/DOI PDF routes, SharedIt, author/preprint/repository searches, affiliations, ResearchGate/ORCID, theorem-number snippets, and equivalent formulas. Only the publisher abstract/metadata was inspectable.
+  - The Chung–Yang abstract advertises a different non-coprime-index selection rule, but theorem-level equivalence remains unresolved because the full article could not be inspected.
+  - The authoritative Stage-4 decision and full search log are in notes/prior-art-audit-4.md.
 - **Stage 5 — Lean: NOT STARTED.**
 - **Stage 6 — Palomar: NOT STARTED.**
 - **Stage 7 — paper: NOT STARTED.**
@@ -40,11 +46,11 @@ Date: 2026-09-29
 - **Target A:** **proved informally** in full stated generality. The p≡1 mod m subcase remains known prior art from McTague and must be attributed.
 - **Existence of T_p(m):** **proved informally** for every Target-A pair (p,m), before the minimum is used.
 - **Target B (a>=2):** **proved informally**:
-  \[
+  [
   T_p(p^a+1)=p^{3a}+1.
-  \]
+  ]
 - **Exceptional T_2(3)=6:** known from McTague's explicit example plus admissibility, not a candidate contribution.
-- **Novelty / uniqueness:** **not established.** Stage 2 found no equivalent theorem for the general higher Target-A maximum or Target B, but the exact proved statements now require the final Stage-4 theorem-level audit.
+- **Novelty / uniqueness:** **not established.** The Stage-4 documented search located no equivalent result for the surviving exact statements, but this is only a negative search. Full theorem-level comparison with Chung–Yang 2026 remains unresolved.
 
 ## Proof trust boundary
 
@@ -52,4 +58,4 @@ The Stage-3 argument depends on classical Kummer carry/borrow theory and element
 
 ## Next action
 
-Run **Stage 4 only**: audit the exact informally proved statements theorem-by-theorem against the literature and equivalent formulations. Recheck Wu and McTague with the final proof statements, make a renewed attempt to obtain or inspect the full Chung–Yang 2026 theorem text, search the sharpness construction and least-row formula in equivalent notation, and finish with a precise novelty/uniqueness gate. Do not begin Lean, Palomar registration, or paper writing unless Stage 4 clears an exact theorem.
+Continue **Stage 4 only** by obtaining an inspectable lawful copy of Chung–Yang 2026, *The Greatest Common Divisor of Binomial Coefficients with Non-coprime Indices*, and comparing every theorem/lemma/corollary with the project's fixed-multiple family, Target A, and Target B. Update notes/prior-art-audit-4.md after that comparison. Do not begin Lean, Palomar registration, paper writing, or arXiv work while this blocker remains.
