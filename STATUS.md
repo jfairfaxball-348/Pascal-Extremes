@@ -31,12 +31,13 @@ Date: 2026-09-29
   - Attainment at p^(3a)+1 is proved by an exact Kummer residue count.
   - Strict non-attainment at every smaller admissible row is proved using an explicit leading-digit witness, with a fixed fallback multiplier p^(a-1) for the unique worst leading-digit pattern.
   - Full proof, failed approaches, endpoint checks, and the a=1 exclusion are in notes/proof.md.
-- **Stage 4 — final theorem-level uniqueness / novelty audit: AUDIT RUN; CLEARANCE WITHHELD.**
+- **Stage 4 — final theorem-level uniqueness / novelty audit: COMPLETE. Gate: PROCEED.**
   - Wu v2 and McTague v5 were rechecked directly against the exact Stage-3 statements.
   - Target A's p≡1 mod m subcase and the (2,3,6) exception remain exact known overlaps.
   - No equivalent theorem was located for the remaining general Target-A maximum/equality construction or for Target B, including the least multiplier p^(2a)-p^a+1=Phi_6(p^a) and strict lower-multiplier non-attainment.
   - A renewed full-text search for Chung–Yang 2026 checked Springer/DOI PDF routes, SharedIt, author/preprint/repository searches, affiliations, ResearchGate/ORCID, theorem-number snippets, and equivalent formulas. Only the publisher abstract/metadata was inspectable.
-  - The Chung–Yang abstract advertises a different non-coprime-index selection rule, but theorem-level equivalence remains unresolved because the full article could not be inspected.
+  - Chung–Yang 2026 is retained as an explicit residual novelty caveat: its advertised non-coprime-index selection rule is different, but non-overlap with inaccessible internal theorem text could not be verified because of recency and lack of open source material.
+  - This caveat must be disclosed in any later novelty discussion, but it is not a blocker to formalisation.
   - The authoritative Stage-4 decision and full search log are in notes/prior-art-audit-4.md.
 - **Stage 5 — Lean: NOT STARTED.**
 - **Stage 6 — Palomar: NOT STARTED.**
@@ -52,7 +53,7 @@ Date: 2026-09-29
   T_p(p^a+1)=p^{3a}+1.
   \]
 - **Exceptional T_2(3)=6:** known from McTague's explicit example plus admissibility, not a candidate contribution.
-- **Novelty / uniqueness:** **not established.** The Stage-4 documented search located no equivalent result for the surviving exact statements, but this is only a negative search. Full theorem-level comparison with Chung–Yang 2026 remains unresolved.
+- **Novelty / uniqueness:** **not established.** The Stage-4 documented search located no equivalent result for the surviving exact statements, but this is only a negative search. Chung–Yang 2026 remains an explicit residual caveat because its full theorem text was not openly inspectable.
 
 ## Proof trust boundary
 
@@ -60,4 +61,4 @@ The Stage-3 argument depends on classical Kummer carry/borrow theory and element
 
 ## Next action
 
-Continue **Stage 4 only** by obtaining an inspectable lawful copy of Chung–Yang 2026, *The Greatest Common Divisor of Binomial Coefficients with Non-coprime Indices*, and comparing every theorem/lemma/corollary with the project's fixed-multiple family, Target A, and Target B. Update notes/prior-art-audit-4.md after that comparison. Do not begin Lean, Palomar registration, paper writing, or arXiv work while this blocker remains.
+Run **Stage 5 only: Lean formalisation** of the exact Stage-3 theorems now cleared by the Stage-4 gate. Preserve all prior-art attributions and the Chung–Yang novelty caveat. Do not begin Palomar registration, paper writing, or arXiv work during Stage 5.
