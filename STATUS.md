@@ -25,7 +25,9 @@ Date: 2026-09-29
   - Sharpness is proved constructively. For r=r_p(m)>=2, write m=a p^(r-1)+c with 1<=a<=p-1 and 1<=c<p^(r-1); after repeating p^(r-1) modulo m at a sufficiently large exponent L, the admissible row N=a p^L+c forces at least r carries in every selected split. The r=1 case is handled by N=mp.
   - Equality rows therefore exist before T_p(m) is defined, so T_p(m) is well-defined by well-ordering.
   - Target B is proved for every prime p and every a>=2:
-    T_p(p^a+1)=p^(3a)+1.
+    \[
+    T_p(p^a+1)=p^{3a}+1.
+    \]
   - Attainment at p^(3a)+1 is proved by an exact Kummer residue count.
   - Strict non-attainment at every smaller admissible row is proved using an explicit leading-digit witness, with a fixed fallback multiplier p^(a-1) for the unique worst leading-digit pattern.
   - Full proof, failed approaches, endpoint checks, and the a=1 exclusion are in notes/proof.md.
@@ -46,9 +48,9 @@ Date: 2026-09-29
 - **Target A:** **proved informally** in full stated generality. The p≡1 mod m subcase remains known prior art from McTague and must be attributed.
 - **Existence of T_p(m):** **proved informally** for every Target-A pair (p,m), before the minimum is used.
 - **Target B (a>=2):** **proved informally**:
-  [
+  \[
   T_p(p^a+1)=p^{3a}+1.
-  ]
+  \]
 - **Exceptional T_2(3)=6:** known from McTague's explicit example plus admissibility, not a candidate contribution.
 - **Novelty / uniqueness:** **not established.** The Stage-4 documented search located no equivalent result for the surviving exact statements, but this is only a negative search. Full theorem-level comparison with Chung–Yang 2026 remains unresolved.
 
