@@ -1,0 +1,34 @@
+Pascal Extremes — Stage-2 seven-case pilot reproduction
+Python: 3.13.5
+script_sha256: 2960b7b47aee3916a3f547267735d8643449c2b5c975b5ebe74bd9d7e796b6db
+arithmetic: exact Python integers; no floating-point logarithms
+DP constraints: m|k; 0<k<N; terminal borrow=0
+direct reference: Legendre valuations over every k=m,2m,...,N-m
+actual-gcd reference: math.comb + math.gcd on stated tractable ranges
+
+case p=2 a=1 m=3 r=2: first extremal N=6 (q=2), v_p(G)=2; no earlier admissible row
+  DP = direct Legendre for q=2..2 (1 admissible rows).
+  DP = actual binomial-gcd for q=2..2 (1 checked rows).
+case p=3 a=1 m=4 r=2: first extremal N=12 (q=3), v_p(G)=2; pre-target max=0 at N=8
+  DP = direct Legendre for q=2..3 (2 admissible rows).
+  DP = actual binomial-gcd for q=2..3 (2 checked rows).
+case p=5 a=1 m=6 r=2: first extremal N=30 (q=5), v_p(G)=2; pre-target max=0 at N=12
+  DP = direct Legendre for q=2..5 (4 admissible rows).
+  DP = actual binomial-gcd for q=2..5 (4 checked rows).
+case p=2 a=2 m=5 r=3: first extremal N=65 (q=13), v_p(G)=3; pre-target max=2 at N=10
+  DP = direct Legendre for q=2..13 (12 admissible rows).
+  DP = actual binomial-gcd for q=2..13 (12 checked rows).
+case p=2 a=3 m=9 r=4: first extremal N=513 (q=57), v_p(G)=4; pre-target max=3 at N=261
+  DP = direct Legendre for q=2..57 (56 admissible rows).
+  DP = actual binomial-gcd for q=2..57 (56 checked rows).
+case p=3 a=2 m=10 r=3: first extremal N=730 (q=73), v_p(G)=3; pre-target max=2 at N=30
+  DP = direct Legendre for q=2..73 (72 admissible rows).
+  DP = actual binomial-gcd for q=2..73 (72 checked rows).
+case p=5 a=2 m=26 r=3: first extremal N=15626 (q=601), v_p(G)=3; pre-target max=2 at N=130
+  DP = direct Legendre for q=2..601 (600 admissible rows).
+  DP = actual binomial-gcd for q=2..38; plus target row (38 checked rows).
+
+RESULT: all seven reconstructed pilot cases reproduced exactly.
+NOTE: the durable Session-01 handoff records the three a=1 rows but
+does not enumerate the four a>=2 pilot tuples; those four are the
+Target-B specializations (2,2), (2,3), (3,2), (5,2) used here.
