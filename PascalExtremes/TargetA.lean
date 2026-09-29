@@ -168,9 +168,12 @@ theorem targetA_upper_witness
         X + m * lam < m + m * lam := Nat.add_lt_add_right hXLt _
         _ ≤ m + m * (p - 1) := Nat.add_le_add_left hmulLe _
         _ = m * p := by
-          rw [← Nat.mul_add]
-          congr 1
-          omega
+          calc
+            m + m * (p - 1) = m * 1 + m * (p - 1) := by simp
+            _ = m * (1 + (p - 1)) := (Nat.mul_add _ _ _).symm
+            _ = m * p := by
+              congr 1
+              omega
         _ = p * m := Nat.mul_comm _ _
     have hs : X + m * lam < p ^ (rP p m + 1) :=
       hsltPm.trans hpmul
