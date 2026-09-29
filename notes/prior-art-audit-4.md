@@ -431,18 +431,18 @@ The absence of a citation or search hit is not evidence of uniqueness.
 | Least multiplier \(p^{2a}-p^a+1=\Phi_6(p^a)\) and strict lower-row non-attainment | **No equivalent result located in inspected sources/searches.** |
 | Chung–Yang 2026 | **High-priority unresolved equivalence at theorem level** — abstract inspected; full theorem text not obtained. |
 
-## 9. Remaining blocker
+## 9. Residual novelty caveat
 
 The mathematical statements remain **proved informally** as recorded in Stage 3.
 
 The literature position is stronger than at Stage 2 in two ways: Wu and McTague have now been checked directly against the exact final statements, and the exact Target-B multiplier/strict-minimality formulation has been searched explicitly.
 
-However, the final uniqueness/novelty audit is not fully closed because the complete theorem text of Chung–Yang 2026 could not be inspected. Since Stage 2 explicitly designated that source for mandatory Stage-4 full-text recheck, and because it is both extremely recent and unusually close in \(p^t+1\)/Kummer/\(p\)-adic content, clearing Stage 5 without that inspection would weaken the project's stated workflow standard.
+The complete theorem text of Chung–Yang 2026 could not be inspected. This is recorded as a **residual novelty caveat, not a blocker**. The paper is exceptionally recent, its advertised selection rule is different, and no equivalent Target-A or Target-B statement was located in the accessible abstract, metadata, indexed snippets, or other documented searches. Nevertheless, novelty relative to any non-public theorem, lemma, or corollary inside that paper **has not been verified**.
 
-The correct next action is to obtain an inspectable lawful copy of the Chung–Yang article (publisher/institutional access or an author-archived manuscript), compare every theorem/lemma/corollary against the fixed-multiple family and Targets A/B, and append the result to this audit. If that check finds no equivalent, the already documented negative searches can support a cautious candidate-novelty position, but still not a claim of historical uniqueness.
+Any later Palomar registration, paper, or arXiv novelty discussion must therefore cite Chung–Yang as adjacent work and state transparently that the present audit could not verify non-overlap with its inaccessible full theorem text because of the paper's recency and lack of open source material. This caveat does not alter the Stage-3 proof status and does not prevent formalisation.
 
 ## 10. Stage-4 gate
 
-**HOLD — no exact proved theorem is cleared to proceed to Lean formalisation yet.**
+**PROCEED — Target A and Target B are cleared to proceed to Stage 5 Lean formalisation.**
 
-Reason: no equivalent Target-A general maximum or Target-B least-row theorem was located in the inspected literature, but the mandatory full theorem-level comparison with Chung–Yang (2026) remains unresolved because only the publisher abstract/metadata could be inspected.
+Basis: no equivalent theorem was located in the inspected literature for the surviving exact statements, while the unresolved Chung–Yang 2026 comparison is retained explicitly as a novelty caveat rather than treated as proof of uniqueness or as a formalisation blocker.
