@@ -21,6 +21,10 @@ def admissibleIndices (N m : ℕ) : Finset ℕ :=
 def G (N m : ℕ) : ℕ :=
   (admissibleIndices N m).gcd fun k ↦ N.choose k
 
+/-- An admissible row for modulus `m`: a proper larger multiple of `m`. -/
+def AdmissibleRow (m N : ℕ) : Prop :=
+  m < N ∧ m ∣ N
+
 /-- Predicate form of membership in `admissibleIndices`. -/
 def Admissible (N m k : ℕ) : Prop :=
   0 < k ∧ k < N ∧ m ∣ k
@@ -48,6 +52,31 @@ theorem G_ne_zero {N m : ℕ} (hm : 0 < m) (hNm : m < N) :
   rw [G, Finset.gcd_ne_zero_iff]
   refine ⟨m, m_mem_admissibleIndices hm hNm, ?_⟩
   exact Nat.choose_ne_zero_iff.mpr hNm.le
+
+
+/-- The valuation of the restricted gcd is bounded by that of every selected coefficient. -/
+theorem padicVal_G_le_choose
+    {N m p k : ℕ} (hm : 0 < m) (hNm : m < N) (hp : p.Prime)
+    (hk : Admissible N m k) :
+    padicValNat p (G N m) ≤ padicValNat p (N.choose k) := by
+  letI : Fact p.Prime := ⟨hp⟩
+  have hGne : G N m ≠ 0 := G_ne_zero hm hNm
+  have hchooseNe : N.choose k ≠ 0 :=
+    Nat.choose_ne_zero_iff.mpr hk.2.1.le
+  have hGdvd : G N m ∣ N.choose k :=
+    G_dvd_choose (mem_admissibleIndices_iff.mpr hk)
+  by_contra hnot
+  have hlt :
+      padicValNat p (N.choose k) < padicValNat p (G N m) :=
+    Nat.lt_of_not_ge hnot
+  have hpG : p ^ (padicValNat p (N.choose k) + 1) ∣ G N m :=
+    (padicValNat_dvd_iff_le hGne).2 hlt
+  have hpChoose : p ^ (padicValNat p (N.choose k) + 1) ∣ N.choose k :=
+    hpG.trans hGdvd
+  have hle :
+      padicValNat p (N.choose k) + 1 ≤ padicValNat p (N.choose k) :=
+    (padicValNat_dvd_iff_le hchooseNe).1 hpChoose
+  omega
 
 /-- If every selected coefficient has valuation at least `r` and one selected
 coefficient has valuation exactly `r`, then the restricted gcd does too. -/
