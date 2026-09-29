@@ -4,7 +4,7 @@ Date of audit: **2026-09-29**.
 
 This is the final theorem-level audit requested after the Stage-3 informal proofs. It is not a proof of historical uniqueness. A negative search below means only **no equivalent result was located in the documented search**.
 
-Stage 4 does not alter the mathematical proof status in \`notes/proof.md\`; it audits whether the exact proved statements can responsibly be advanced to formalisation as candidate contributions.
+Stage 4 does not alter the mathematical proof status in `notes/proof.md`; it audits whether the exact proved statements can responsibly be advanced to formalisation as candidate contributions.
 
 ## 1. Exact proved statements under audit
 
@@ -218,12 +218,12 @@ For \(m>1\), the project set is a subset of the full non-coprime set, but the se
 
 **Renewed access attempts on 2026-09-29.** The audit attempted all of the following:
 - the Springer article page and its PDF route;
-- the DOI plus \`pdf\`, exact title plus \`pdf\`, and exact title plus theorem-number searches;
+- the DOI plus `pdf`, exact title plus `pdf`, and exact title plus theorem-number searches;
 - Springer SharedIt;
-- exact-title searches with \`preprint\`, \`accepted manuscript\`, \`author manuscript\`, and \`repository\`;
+- exact-title searches with `preprint`, `accepted manuscript`, `author manuscript`, and `repository`;
 - searches tied to the authors' Fuzhou University and Soochow University affiliations;
 - ResearchGate and ORCID/title searches;
-- searches for indexed theorem snippets using the DOI, \`Theorem 1\`, \`Theorem 2\`, \`Theorem 3\`, \(B_{>1}\), \(p^t+1\), and exact \(p\)-adic valuation terminology.
+- searches for indexed theorem snippets using the DOI, `Theorem 1`, `Theorem 2`, `Theorem 3`, \(B_{>1}\), \(p^t+1\), and exact \(p\)-adic valuation terminology.
 
 The publisher page remains a subscription preview and offers a paid PDF. Its SharedIt section says that no shareable link is currently available. The direct PDF route was not inspectable through the available web interface. No open author manuscript, preprint, repository copy, or theorem-level indexed rendering was located.
 
@@ -392,13 +392,13 @@ The Stage-4 search deliberately avoided dependence on project notation.
 
 Search families included:
 
-- \`g(m,n)\`, \`ord_p(g(m,n))\`, \`gcd binom(mn,mk)\`;
-- \`maximum p-adic valuation\`, \`minimum p-adic valuation\`, \`higher p-adic valuation\`;
-- \`m|k\`, \`mk\`, “multiples of the lower index”, and “fixed-multiple lower indices”;
+- `g(m,n)`, `ord_p(g(m,n))`, `gcd binom(mn,mk)`;
+- `maximum p-adic valuation`, `minimum p-adic valuation`, `higher p-adic valuation`;
+- `m|k`, `mk`, “multiples of the lower index”, and “fixed-multiple lower indices”;
 - Kummer carries, Kummer borrows, and residue criteria;
-- \`ceil(log_p m)\`, integer-power thresholds \(m<p^r\), and \`p∤m\`;
-- \`least\`, \`first\`, \`minimal row\`, \`least multiplier\`, \`extremal row\`;
-- the Stage-3 construction terms \`multiplicative order\`, \(a p^L+c\), and \(L\equiv r-1\pmod{\operatorname{ord}_m(p)}\);
+- `ceil(log_p m)`, integer-power thresholds \(m<p^r\), and `p∤m`;
+- `least`, `first`, `minimal row`, `least multiplier`, `extremal row`;
+- the Stage-3 construction terms `multiplicative order`, \(a p^L+c\), and \(L\equiv r-1\pmod{\operatorname{ord}_m(p)}\);
 - \(p^a+1\), \(p^{3a}+1\), \(p^{2a}-p^a+1\), \(\Phi_6(p^a)\), and textual exponent variants.
 
 The general web index was supplemented by arXiv records, DOI/publisher pages, exact-title searches, recent-paper searches, and reference/citation trails from Wu, McTague, Chung–Yang, and Chung–Yang–Zhou.
