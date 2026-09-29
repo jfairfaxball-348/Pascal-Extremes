@@ -1,4 +1,4 @@
-import Mathlib.Data.Nat.Log
+import Mathlib
 
 namespace PascalExtremes
 
@@ -34,13 +34,15 @@ theorem pow_pred_rP_le {p m : ℕ} (hm : m ≠ 0) :
 
 theorem rP_pow_add_one {p a : ℕ} (hp : 1 < p) (ha : 1 ≤ a) :
     rP p (p ^ a + 1) = a + 1 := by
-  have hpPow : p ^ a < p ^ (a + 1) :=
-    Nat.pow_lt_pow_right hp (Nat.lt_succ_self a)
+  have hpa : p ≤ p ^ a := by
+    rw [← pow_one p]
+    exact Nat.pow_le_pow_right hp.pos ha
   have hgap : p ^ a + 1 < p ^ (a + 1) := by
-    have hpowpos : 0 < p ^ a := pow_pos (Nat.zero_lt_of_lt hp) a
-    rw [pow_succ]
-    have hp2 : 2 ≤ p := hp
-    nlinarith
+    calc
+      p ^ a + 1 < p ^ a + p ^ a := Nat.add_lt_add_left (by omega) _
+      _ = 2 * p ^ a := by omega
+      _ ≤ p * p ^ a := Nat.mul_le_mul_right _ hp.two_le
+      _ = p ^ (a + 1) := by rw [Nat.pow_succ, Nat.mul_comm]
   have hlog :
       Nat.log p (p ^ a + 1) = a :=
     Nat.log_eq_of_pow_le_of_lt_pow (Nat.le_add_right _ _) hgap
