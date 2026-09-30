@@ -258,28 +258,111 @@ private theorem targetB_lower_bound_at_target
       omega
     _ ≤ C.card := hcard
 
+/-- The explicit Stage-3 equality witness at the Target-B row:
+the selected multiplier is `p^(2a-1)`, and its binomial coefficient has
+exactly `a+1` carries. -/
+theorem targetB_attainment_witness
+    {p a : ℕ} (hp : p.Prime) (ha : 2 ≤ a) :
+    ∃ k, Admissible (p ^ (3 * a) + 1) (p ^ a + 1) k ∧
+      padicValNat p ((p ^ (3 * a) + 1).choose k) = a + 1 := by
+  let d := p ^ (2 * a - 1)
+  let k := (p ^ a + 1) * d
+  have hdpos : 0 < d := by
+    dsimp [d]
+    exact pow_pos hp.pos _
+  have hQleD : p ^ a ≤ d := by
+    dsimp [d]
+    exact Nat.pow_le_pow_right hp.pos (by omega)
+  have hpD : p * d = p ^ (2 * a) := by
+    dsimp [d]
+    calc
+      p * p ^ (2 * a - 1) = p ^ (2 * a - 1) * p := Nat.mul_comm _ _
+      _ = p ^ ((2 * a - 1) + 1) := (pow_succ p (2 * a - 1)).symm
+      _ = p ^ (2 * a) := by congr 1 <;> omega
+  have hsum : d + p ^ a ≤ p ^ (2 * a) := by
+    calc
+      d + p ^ a ≤ d + d := Nat.add_le_add_left hQleD _
+      _ = 2 * d := by omega
+      _ ≤ p * d := Nat.mul_le_mul_right d hp.two_le
+      _ = p ^ (2 * a) := hpD
+  have hdlt : d < q0 p a := by
+    dsimp [q0]
+    omega
+  have hrowEq := mul_q0_eq_pow_three_add_one hp (by omega : 1 ≤ a)
+  have hk : Admissible (p ^ (3 * a) + 1) (p ^ a + 1) k := by
+    refine ⟨Nat.mul_pos (by positivity) hdpos, ?_, dvd_mul_right _ d⟩
+    rw [← hrowEq]
+    dsimp [k]
+    exact (Nat.mul_lt_mul_left (by positivity : 0 < p ^ a + 1)).2 hdlt
+  have hlower :=
+    targetB_lower_bound_at_target hp ha k hk
+  have hupper :
+      padicValNat p ((p ^ (3 * a) + 1).choose k) ≤ a + 1 := by
+    letI : Fact p.Prime := ⟨hp⟩
+    have hNpos : 0 < p ^ (3 * a) + 1 := by positivity
+    have hNlt : p ^ (3 * a) + 1 < p ^ (3 * a + 1) := by
+      have hone : 1 < p ^ (3 * a) := by
+        calc
+          1 < p := hp.one_lt
+          _ ≤ p ^ (3 * a) := by
+            calc
+              p = p ^ 1 := (pow_one p).symm
+              _ ≤ p ^ (3 * a) :=
+                Nat.pow_le_pow_right hp.pos (by omega)
+      calc
+        p ^ (3 * a) + 1 < p ^ (3 * a) + p ^ (3 * a) :=
+          Nat.add_lt_add_left hone _
+        _ = 2 * p ^ (3 * a) := by omega
+        _ ≤ p * p ^ (3 * a) := Nat.mul_le_mul_right _ hp.two_le
+        _ = p ^ (3 * a + 1) := by
+          calc
+            p * p ^ (3 * a) = p ^ (3 * a) * p := Nat.mul_comm _ _
+            _ = p ^ (3 * a + 1) := (pow_succ p (3 * a)).symm
+    have hlog : Nat.log p (p ^ (3 * a) + 1) < 3 * a + 1 :=
+      (Nat.log_lt_iff_lt_pow hp.one_lt (Nat.ne_of_gt hNpos)).2 hNlt
+    rw [padicVal_choose_eq_carryCount hk.2.1.le hlog, carryCount]
+    let C := (Finset.Ico 1 (3 * a + 1)).filter
+      fun i ↦ CarryAt p (p ^ (3 * a) + 1) k i
+    have hsub : C ⊆ Finset.Icc (2 * a) (3 * a) := by
+      intro i hi
+      have hi' := Finset.mem_filter.mp hi
+      have hiRange := Finset.mem_Ico.mp hi'.1
+      have hcarry := hi'.2
+      apply Finset.mem_Icc.mpr
+      refine ⟨?_, by omega⟩
+      by_contra hnot
+      have hiLow : i ≤ 2 * a - 1 := by omega
+      have hdivD : p ^ i ∣ d := by
+        dsimp [d]
+        exact Nat.pow_dvd_pow p hiLow
+      have hdivK : p ^ i ∣ k := by
+        dsimp [k]
+        exact dvd_mul_of_dvd_right hdivD (p ^ a + 1)
+      have hkmod : k % p ^ i = 0 :=
+        Nat.mod_eq_zero_of_dvd hdivK
+      have hno :
+          ¬ CarryAt p (p ^ (3 * a) + 1) k i :=
+        (not_carryAt_iff_mod_pow_le hp.pos hk.2.1.le).2 (by
+          rw [hkmod]
+          exact Nat.zero_le _)
+      exact hno hcarry
+    have hcard := Finset.card_le_card hsub
+    change C.card ≤ a + 1
+    calc
+      C.card ≤ (Finset.Icc (2 * a) (3 * a)).card := hcard
+      _ = a + 1 := by
+        simp
+        omega
+  exact ⟨k, hk, Nat.le_antisymm hupper hlower⟩
+
 /-- Target-B attainment at the proposed row, proved by the residue/carry
 form of Kummer. -/
 theorem targetB_attainment
     {p a : ℕ} (hp : p.Prime) (ha : 2 ≤ a) :
     padicValNat p (G (p ^ (3 * a) + 1) (p ^ a + 1)) = a + 1 := by
-  have hm2 : 2 ≤ p ^ a + 1 := by
-    have hpow : 0 < p ^ a := pow_pos hp.pos _
-    omega
-  have hpm : ¬ p ∣ p ^ a + 1 :=
-    not_p_dvd_pow_add_one hp (by omega)
   have hrow := q0_row_admissible hp ha
-  have hr : rP p (p ^ a + 1) = a + 1 :=
-    rP_pow_add_one hp.one_lt (by omega)
   have hlower := targetB_lower_bound_at_target hp ha
-  obtain ⟨w, hw, hwUpper⟩ :=
-    targetA_upper_witness hp hm2 hpm hrow
-  have hwUpper' :
-      padicValNat p ((p ^ (3 * a) + 1).choose w) ≤ a + 1 := by
-    simpa [hr] using hwUpper
-  have hwEq :
-      padicValNat p ((p ^ (3 * a) + 1).choose w) = a + 1 :=
-    Nat.le_antisymm hwUpper' (hlower w hw)
+  obtain ⟨w, hw, hwEq⟩ := targetB_attainment_witness hp ha
   exact padicVal_G_eq_of_lower_bound_of_witness
     (by positivity) hrow.1 hp hlower ⟨w, hw, hwEq⟩
 
