@@ -15,7 +15,8 @@ private theorem base_pure_power_choose_le_two
       (p ^ a + 1) * p = p ^ (a + 1) + p := by
     rw [pow_succ]
     ring
-  have hNpos : 0 < (p ^ a + 1) * p := by positivity
+  have hNpos : 0 < (p ^ a + 1) * p := by
+    exact Nat.mul_pos (by omega) hp.pos
   have hNlt : (p ^ a + 1) * p < p ^ (a + 2) := by
     rw [hNform]
     have hpLt : p < p ^ (a + 1) := by
@@ -30,7 +31,10 @@ private theorem base_pure_power_choose_le_two
       _ ≤ p * p ^ (a + 1) :=
         Nat.mul_le_mul_right _ hp.two_le
       _ = p ^ (a + 2) := by
-        rw [show a + 2 = (a + 1) + 1 by omega, pow_succ, Nat.mul_comm]
+        calc
+          p * p ^ (a + 1) = p ^ (a + 1) * p := Nat.mul_comm _ _
+          _ = p ^ ((a + 1) + 1) := (pow_succ p (a + 1)).symm
+          _ = p ^ (a + 2) := by congr 1 <;> omega
   have hlog :
       Nat.log p ((p ^ a + 1) * p) < a + 2 :=
     (Nat.log_lt_iff_lt_pow hp.one_lt (Nat.ne_of_gt hNpos)).2 hNlt
@@ -77,7 +81,9 @@ private theorem base_pure_power_choose_le_two
     exact False.elim (hno hcarry)
   have hcard := Finset.card_le_card hsub
   change C.card ≤ 2
-  exact hcard.trans (by simp)
+  have hpair : ({1, a + 1} : Finset ℕ).card = 2 := by
+    simp [show a + 1 ≠ 1 by omega]
+  simpa [hpair] using hcard
 
 /-- Pure-power multiplier branch of the strict lower-row argument. -/
 theorem targetB_pure_power_witness_le
@@ -95,8 +101,12 @@ theorem targetB_pure_power_witness_le
   have hN :
       p ^ (t - 1) * ((p ^ a + 1) * p) =
         (p ^ a + 1) * p ^ t := by
-    rw [htEq, pow_succ]
-    ring
+    calc
+      p ^ (t - 1) * ((p ^ a + 1) * p) =
+          (p ^ a + 1) * (p ^ (t - 1) * p) := by ring
+      _ = (p ^ a + 1) * p ^ ((t - 1) + 1) := by
+        rw [pow_succ]
+      _ = (p ^ a + 1) * p ^ t := by rw [← htEq]
   have hk :
       p ^ (t - 1) * (p ^ a + 1) =
         (p ^ a + 1) * p ^ (t - 1) := by ring
