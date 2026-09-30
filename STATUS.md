@@ -1,6 +1,6 @@
 # Project status
 
-Date: 2026-09-29
+Date: 2026-09-30
 
 ## Stage gates
 
@@ -39,16 +39,23 @@ Date: 2026-09-29
   - Chung–Yang 2026 is retained as an explicit residual novelty caveat: its advertised non-coprime-index selection rule is different, but non-overlap with inaccessible internal theorem text could not be verified because of recency and lack of open source material.
   - This caveat must be disclosed in any later novelty discussion, but it is not a blocker to formalisation.
   - The authoritative Stage-4 decision and full search log are in notes/prior-art-audit-4.md.
-- **Stage 5 — Lean: NOT STARTED.**
+- **Stage 5 — Lean: COMPLETE. Gate: PROCEED.**
+  - Target A is formalised as `targetA`, with the universal upper bound, constructive attainment, and exact maximum statement.
+  - Extremal-row existence is proved before the least row `T` is used; `T_mem_extremalRows` and `T_isLeast` formalise well-definedness/minimality for every Target-A pair.
+  - Target B is formalised as `targetB`: for every prime `p` and `a>=2`, `T p (p^a+1)=p^(3a)+1`.
+  - The target-row proof includes the exact Stage-3 equality witness with multiplier `p^(2a-1)`; strict lower-row non-attainment retains the leading split and fixed fallback `p^(a-1)`.
+  - Focused examples include `T 2 5 = 65`.
+  - GitHub Actions builds from a fresh checkout with `lake build` and rejects `sorry`/`admit` in the project Lean sources. The final Stage-5 branch CI is required green before merge.
+  - Formalisation details and provenance are in `notes/formalisation-5.md`.
 - **Stage 6 — Palomar: NOT STARTED.**
 - **Stage 7 — paper: NOT STARTED.**
 - **Stage 8 — arXiv: NOT STARTED.**
 
 ## Claim status
 
-- **Target A:** **proved informally** in full stated generality. The p≡1 mod m subcase remains known prior art from McTague and must be attributed.
-- **Existence of T_p(m):** **proved informally** for every Target-A pair (p,m), before the minimum is used.
-- **Target B (a>=2):** **proved informally**:
+- **Target A:** **formalised** in full stated generality. The p≡1 mod m subcase remains known prior art from McTague and must be attributed.
+- **Existence of T_p(m):** **formalised** for every Target-A pair (p,m), with attainment proved before the least extremal row is used.
+- **Target B (a>=2):** **formalised**:
   \[
   T_p(p^a+1)=p^{3a}+1.
   \]
@@ -57,8 +64,8 @@ Date: 2026-09-29
 
 ## Proof trust boundary
 
-The Stage-3 argument depends on classical Kummer carry/borrow theory and elementary p-adic/gcd facts. The Stage-2 experiments were used only for debugging candidate witnesses and endpoint checks; no finite computation is used as a proof step.
+The Lean theorem layer now formalises the Stage-3 argument using Mathlib's Kummer/p-adic infrastructure and elementary arithmetic. The Stage-2 experiments remain outside both the mathematical and formal proof trust boundary; no finite computation is used as a proof step. No theorem-specific axiom, `sorry`, or `admit` is introduced.
 
 ## Next action
 
-Run **Stage 5 only: Lean formalisation** of the exact Stage-3 theorems now cleared by the Stage-4 gate. Preserve all prior-art attributions and the Chung–Yang novelty caveat. Do not begin Palomar registration, paper writing, or arXiv work during Stage 5.
+Run **Stage 6 only: Palomar registration** for the completed Lean theorem layer. Re-verify the current Palomar submission contract before packaging, preserve the exact theorem statements and all prior-art/novelty caveats, and do not begin the research paper or arXiv work during Stage 6.
