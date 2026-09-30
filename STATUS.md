@@ -53,7 +53,14 @@ Date: 2026-09-30
   - The registration records the Lean-verified theorem package; it is verification/provenance evidence, not evidence of historical priority, novelty, or uniqueness.
   - The Stage-4 prior-art conclusions remain unchanged: Wu's exact family, McTague's known subcase and exceptional example, and the unresolved Chung–Yang 2026 full-text caveat must all be preserved in later writing.
   - Full packaging and verification history is in `notes/palomar-packaging-6.md`.
-- **Stage 7 — paper: IN PROGRESS.**
+- **Stage 7 — paper: COMPLETE. Gate: PROCEED.**
+  - A standalone research paper has been completed in `paper/main.tex` with bibliography `paper/references.bib` and build notes in `paper/README.md`.
+  - The manuscript states Target A with constructive attainment before defining the least extremal row, and Target B with both target-row attainment and strict non-attainment below `p^(3a)+1`.
+  - The final PDF build is 13 pages and passed LaTeX log, reference/citation, PDF preflight, and rendered-page inspection checks.
+  - The theorem statements and edge conditions were audited against `notes/proof.md` and the final Lean theorem layer.
+  - Prior-art wording preserves Wu's exact-family status, McTague's known overlap and `(2,3,6)` example, and the unresolved Chung–Yang 2026 full-text caveat.
+  - The formal-verification section records **PALOMAR-2026-09-30-000033**, version **1**, as verification/provenance evidence only.
+  - Full Stage-7 build/audit details are in `notes/session-07-handoff.md`.
 - **Stage 8 — arXiv: NOT STARTED.**
 
 ## Claim status
@@ -73,4 +80,4 @@ The Lean theorem layer now formalises the Stage-3 argument using Mathlib's Kumme
 
 ## Next action
 
-Complete **Stage 7 — research paper** from the proved and formalised theorem layer. Build and inspect the LaTeX paper, audit every theorem statement against `notes/proof.md` and the Lean files, preserve the Stage-4 literature caveats, and do not begin Stage 8 until the Stage-7 gate is recorded.
+Begin **Stage 8 — final arXiv preparation and submission** in a fresh session. Re-read `notes/session-07-handoff.md`, perform the arXiv-specific source/package and metadata checks, preserve all prior-art and Chung–Yang caveats, and do not alter the proved theorem scope without a new mathematical audit.
