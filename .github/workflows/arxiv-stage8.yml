@@ -32,7 +32,7 @@ jobs:
             ! grep -nE '(/home/|/mnt/data|[A-Za-z]:\\\\)' arxiv/stage-08/main.tex arxiv/stage-08/references.bib
 
             rm -rf /tmp/arxiv-bib /tmp/arxiv-bbl
-            mkdir -p /tmp/arxiv-bib /tmp/arxiv-bbl "$GITHUB_WORKSPACE/.stage8-artifacts"
+            mkdir -p /tmp/arxiv-bib /tmp/arxiv-bbl "$GITHUB_WORKSPACE/stage8-artifacts"
 
             cp arxiv/stage-08/main.tex arxiv/stage-08/references.bib /tmp/arxiv-bib/
             cd /tmp/arxiv-bib
@@ -45,8 +45,8 @@ jobs:
             ! grep -E 'There were undefined (references|citations)|Citation .* undefined|Reference .* undefined' main.log
             ! grep -E 'Overfull|Underfull' main.log
             grep -F 'Output written on main.pdf (13 pages' main.log
-            cp main.bbl "$GITHUB_WORKSPACE/.stage8-artifacts/main.bbl"
-            cp main.pdf "$GITHUB_WORKSPACE/.stage8-artifacts/main-bib.pdf"
+            cp main.bbl "$GITHUB_WORKSPACE/stage8-artifacts/main.bbl"
+            cp main.pdf "$GITHUB_WORKSPACE/stage8-artifacts/main-bib.pdf"
 
             cp "$GITHUB_WORKSPACE/arxiv/stage-08/main.tex" "$GITHUB_WORKSPACE/arxiv/stage-08/references.bib" /tmp/arxiv-bbl/
             if test -f "$GITHUB_WORKSPACE/arxiv/stage-08/main.bbl"; then
@@ -63,15 +63,15 @@ jobs:
             ! grep -E 'There were undefined (references|citations)|Citation .* undefined|Reference .* undefined' main.log
             ! grep -E 'Overfull|Underfull' main.log
             grep -F 'Output written on main.pdf (13 pages' main.log
-            cp main.pdf "$GITHUB_WORKSPACE/.stage8-artifacts/main-bbl.pdf"
+            cp main.pdf "$GITHUB_WORKSPACE/stage8-artifacts/main-bbl.pdf"
 
-            tar -czf "$GITHUB_WORKSPACE/.stage8-artifacts/arxiv-stage-08.tar.gz" main.tex references.bib main.bbl
-            printf 'Bundle contents:\nmain.tex\nreferences.bib\nmain.bbl\n' > "$GITHUB_WORKSPACE/.stage8-artifacts/manifest.txt"
-            sha256sum main.tex references.bib main.bbl main.pdf > "$GITHUB_WORKSPACE/.stage8-artifacts/sha256.txt"
+            tar -czf "$GITHUB_WORKSPACE/stage8-artifacts/arxiv-stage-08.tar.gz" main.tex references.bib main.bbl
+            printf 'Bundle contents:\nmain.tex\nreferences.bib\nmain.bbl\n' > "$GITHUB_WORKSPACE/stage8-artifacts/manifest.txt"
+            sha256sum main.tex references.bib main.bbl main.pdf > "$GITHUB_WORKSPACE/stage8-artifacts/sha256.txt"
 
       - name: Upload preflight artifacts
         uses: actions/upload-artifact@v4
         with:
           name: arxiv-stage-08-preflight
-          path: .stage8-artifacts/
+          path: stage8-artifacts/
           if-no-files-found: error
