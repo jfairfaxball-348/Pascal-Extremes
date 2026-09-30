@@ -64,10 +64,12 @@ lemma mul_q0_eq_pow_three_add_one
 lemma not_p_dvd_pow_add_one
     {p a : ℕ} (hp : p.Prime) (ha : 1 ≤ a) :
     ¬ p ∣ p ^ a + 1 := by
-  rw [Nat.dvd_iff_mod_eq_zero]
   have hpPow : p ∣ p ^ a := dvd_pow_self p (by omega)
-  rw [Nat.add_mod, Nat.mod_eq_zero_of_dvd hpPow, zero_add]
-  exact Nat.mod_eq_of_lt hp.one_lt
+  have hmod : (p ^ a + 1) % p = 1 := by
+    rw [Nat.add_mod, Nat.mod_eq_zero_of_dvd hpPow, zero_add]
+    simp [Nat.mod_eq_of_lt hp.one_lt]
+  rw [Nat.dvd_iff_mod_eq_zero, hmod]
+  exact one_ne_zero
 
 lemma coprime_pow_two_a_m
     {p a : ℕ} (hp : p.Prime) (ha : 1 ≤ a) :
