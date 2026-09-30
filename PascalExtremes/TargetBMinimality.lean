@@ -573,14 +573,13 @@ theorem targetB_lower_multiplier_witness
       have hlamEq : lam = p - 1 := by
         by_contra hne
         have hlamLe : lam ≤ p - 2 := by omega
-        have hle1 : m * lam ≤ m * (p - 2) :=
-          Nat.mul_le_mul_left m hlamLe
         have hlamSucc : lam + 1 ≤ p - 1 := by omega
         have hlamQ : lam < Q := hlamLt.trans hQgtPbase
         have hstrict : X + m * lam < p * Q := by
           calc
-            X + m * lam ≤ Q + (Q + 1) * lam := by
-              exact Nat.add_le_add hXleQ hle1
+            X + m * lam = X + (Q + 1) * lam := by rfl
+            _ ≤ Q + (Q + 1) * lam :=
+              Nat.add_le_add_right hXleQ _
             _ = Q * (lam + 1) + lam := by ring
             _ ≤ Q * (p - 1) + lam :=
               Nat.add_le_add_right (Nat.mul_le_mul_left Q hlamSucc) _
@@ -672,9 +671,17 @@ theorem targetB_lower_multiplier_witness
             _ = p ^ (t + 1) := (pow_succ p t).symm
         have hmLe : m ≤ m * h := by
           simpa using Nat.mul_le_mul_left m (show 1 ≤ h by omega)
-        dsimp [m] at hmLe
+        have hQltm : Q < m := by
+          dsimp [m]
+          exact Nat.lt_succ_self Q
         rw [hpP] at hmhLt
-        omega
+        have hloop : p ^ (t + 1) < p ^ (t + 1) := by
+          calc
+            p ^ (t + 1) ≤ Q := htpow
+            _ < m := hQltm
+            _ ≤ m * h := hmLe
+            _ < p ^ (t + 1) := hmhLt
+        exact (Nat.lt_irrefl _) hloop
       have htlt2a : t < 2 * a := by
         have hq0lt : q0 p a < p ^ (2 * a) :=
           q0_lt_pow_two_a hp (by omega)
