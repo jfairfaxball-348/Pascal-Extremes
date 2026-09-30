@@ -1,7 +1,12 @@
-import PascalExtremes.Basic
-import PascalExtremes.Powers
-import PascalExtremes.CarryBounds
-import Mathlib.Tactic
+module
+
+public import PascalExtremes.Basic
+public import PascalExtremes.Powers
+public import PascalExtremes.CarryBounds
+public import Mathlib.Tactic
+
+public section
+
 
 namespace PascalExtremes
 

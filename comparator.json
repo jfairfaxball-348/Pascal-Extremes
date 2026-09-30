@@ -1,0 +1,10 @@
+{
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+    "PascalExtremesPalomar.targetA_attainment",
+    "PascalExtremesPalomar.targetA",
+    "PascalExtremesPalomar.targetB"
+  ],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"]
+}

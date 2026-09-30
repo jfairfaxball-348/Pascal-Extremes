@@ -1,5 +1,10 @@
-import PascalExtremes.TargetBMinimality
-import Mathlib.Tactic
+module
+
+public import PascalExtremes.TargetBMinimality
+public import Mathlib.Tactic
+
+public section
+
 
 namespace PascalExtremes
 

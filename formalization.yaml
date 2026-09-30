@@ -1,0 +1,187 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "Pascal Extremes"
+  description: >-
+    A Lean 4 formalisation of sharp p-adic extremal behaviour for the restricted
+    binomial gcd G(N;m) = gcd{C(N,k) : 0 < k < N, m divides k}. For every prime
+    p and m >= 2 with p not dividing m, it proves that the maximum of
+    v_p(G(N;m)) over admissible rows is the least r >= 1 with m < p^r, with
+    constructive attainment proved before the least extremal row T is used.
+    It then proves, for every prime p and a >= 2, the exact least-row formula
+    T_p(p^a+1) = p^(3a)+1.
+  authors:
+    - name: "John Fairfax-Ball"
+      github: "jfairfaxball-348"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "John Fairfax-Ball"
+
+classification:
+  arxiv: ["math.NT"]
+  msc2020: ["11B65"]
+
+sources:
+  - title: "Pascal Extremes: sharp maximum and least extremal-row theorems"
+    authors:
+      - "John Fairfax-Ball"
+    type: "original-proof"
+    relationship: "other"
+    note: >-
+      This repository is the source in which the submitted Target-A maximum and
+      Target-B least-row results are presented and proved. Palomar's
+      original-proof marker records result origin and provenance only; it is not
+      evidence of historical novelty or priority. The Stage-4 audit located no
+      equivalent theorem for the surviving statements outside the known
+      overlaps recorded below, but that is a negative literature search.
+      Chung–Yang 2026 remains an explicit residual caveat because its full
+      theorem text was not openly inspectable.
+  - title: "Computing the Greatest Common Divisor of Binomial Coefficients C(mn,mk)"
+    authors:
+      - "Chai Wah Wu"
+    id: "arXiv:2606.20940v2"
+    type: "paper"
+    location: "https://arxiv.org/abs/2606.20940"
+    relationship: "background"
+    note: >-
+      Defines exactly the selected-gcd family g(m,n)=gcd{C(mn,mk):1<=k<n}.
+      The family itself is prior art. The Stage-4 audit located no statement
+      there equivalent to the surviving general Target-A maximum or Target-B
+      least-row theorem.
+  - title: "On the Greatest Common Divisor of Binomial Coefficients C(n,q), C(n,2q), C(n,3q), ..."
+    authors:
+      - "Carl McTague"
+    id: "DOI:10.4169/amer.math.monthly.124.4.353"
+    type: "paper"
+    location: "https://arxiv.org/abs/1510.06696"
+    relationship: "background"
+    note: >-
+      Theorem Q contains the Target-A subcase p congruent to 1 modulo m, where
+      r_p(m)=1. The paper also records the exact (p,m,N)=(2,3,6) valuation-2
+      example, so that instance and T_2(3)=6 are known prior art.
+  - title: "Kummer's theorem on p-adic valuations of binomial coefficients"
+    authors:
+      - "Ernst Eduard Kummer"
+    type: "other"
+    relationship: "background"
+    note: >-
+      The classical carry/borrow interpretation of v_p(C(n,k)) is proof
+      infrastructure and is not claimed as new.
+  - title: "The Greatest Common Divisor of Binomial Coefficients with Non-coprime Indices"
+    authors:
+      - "Chan-Liang Chung"
+      - "Tse-Chung Yang"
+    id: "DOI:10.1007/s00009-026-03202-3"
+    type: "paper"
+    location: "https://doi.org/10.1007/s00009-026-03202-3"
+    relationship: "background"
+    note: >-
+      Published 27 September 2026 and adjacent to the p^t+1 setting. Its
+      advertised selection rule differs from the fixed-multiple family, but the
+      full theorem text was not openly inspectable during the Stage-4 audit.
+      Exact non-overlap with internal results could therefore not be verified;
+      this residual caveat is retained explicitly.
+
+related_formalizations:
+  - id: "https://github.com/jfairfaxball-348/pascal-minus-one/commit/966f8a03416d1e4c276a835698b5a38cb08c769c"
+    relationship: "adapts"
+    note: >-
+      Compatible low-level restricted-gcd, p-adic, and scaling infrastructure
+      was adapted with Apache-2.0 provenance; the predecessor theorem
+      development is not imported wholesale.
+
+status:
+  scope: >-
+    The repository fully formalises the Stage-3 Target-A upper bound,
+    constructive attainment and exact maximum, proves extremal-row nonemptiness
+    before using the least row T, and proves Target B for every prime p and
+    a >= 2 including target-row attainment and strict non-attainment below it.
+    The Palomar Challenge advertises constructive Target-A attainment, the exact
+    Target-A maximum, and the exact Target-B least-row theorem. The a=1 regime
+    is outside Target B. The deliberate Challenge proof holes are excluded from
+    the proof-development counts.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Quot.sound", "Classical.choice"]
+  main_results:
+    - "PascalExtremes.targetA_attainment"
+    - "PascalExtremes.targetA"
+    - "PascalExtremes.targetB"
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["OpenAI GPT-5.6 Sol"]
+      framework: "ChatGPT"
+      tool_setup: >-
+        Human-directed AI-assisted mathematical research, Lean development,
+        debugging, literature auditing, repository operations, and Palomar
+        packaging using GitHub, GitHub Actions, Lean tactics, and exact
+        arithmetic reference checks.
+      cost:
+        wall_time: "multiple interactive sessions on 29-30 September 2026"
+        spend_usd: "subscription-based; exact API-equivalent spend not tracked"
+        hardware: "GitHub-hosted Linux CI and ChatGPT-hosted tool execution"
+      prompting_notes: >-
+        Prompts enforced staged proof and novelty audits, exact theorem
+        statements, constructive existence before T, zero theorem-specific
+        sorry/admit in the proof development, and current-contract Palomar
+        packaging without treating verification as novelty evidence.
+  spend_usd: "subscription-based; exact API-equivalent spend not tracked"
+  notes: >-
+    The human maintainer selected the research target, theorem scope, validation
+    standards, prior-art wording, and publication decisions. AI assistance was
+    used extensively for proof development, source comparison, Lean work, and
+    packaging. Finite experiments are outside the formal proof trust boundary.
+
+fidelity:
+  divergences: >-
+    No mathematical divergence is introduced between the advertised Challenge
+    declarations and the completed project theorem layer. The Challenge repeats
+    the exact restricted gcd, admissible-row, exponent, extremal-row, and least
+    row definitions using Mathlib only; the Solution bridges those statements
+    to the already-proved project theorems. The repository-wide module-system
+    migration required by the 28 September 2026 Palomar contract changes source
+    visibility/import packaging only, not theorem statements or proofs.
+
+review:
+  status: "self-assessed"
+  reviewers:
+    - "none"
+  notes: >-
+    The mathematical statements were proved informally, re-audited at theorem
+    level against the located literature, and then formalised in Lean. The
+    Stage-4 audit documents exact known overlaps and its negative-search
+    limitations. No independent human peer review is claimed. Palomar
+    verification or registration, if completed, is a verification/provenance
+    fact and not evidence of novelty.
+
+alignment:
+  namespace: "PascalExtremesPalomar"
+  statements:
+    - source: "PascalExtremes.targetA_attainment in PascalExtremes/TargetAAttainment.lean"
+      lean: "PascalExtremesPalomar.targetA_attainment"
+      module: "Solution"
+      status: "proved"
+      note: >-
+        Exact constructive attainment theorem, deliberately ordered before the
+        least extremal-row definition in the Challenge.
+    - source: "PascalExtremes.targetA in PascalExtremes/TargetAAttainment.lean"
+      lean: "PascalExtremesPalomar.targetA"
+      module: "Solution"
+      status: "proved"
+      note: "Exact IsGreatest formulation of the Target-A maximum."
+    - source: "PascalExtremes.targetB in PascalExtremes/TargetBMinimality.lean"
+      lean: "PascalExtremesPalomar.targetB"
+      module: "Solution"
+      status: "proved"
+      note: "Exact least-extremal-row theorem for every prime p and a >= 2."
+
+acknowledgements: >-
+  Chai Wah Wu and Carl McTague for prior work on the same restricted
+  binomial-gcd family; Ernst Eduard Kummer for the classical carry theorem;
+  Chan-Liang Chung and Tse-Chung Yang for adjacent 2026 work retained as a
+  literature caveat; Mathlib for binomial, gcd, p-adic, and arithmetic
+  infrastructure; and Lean, Comparator, and Palomar for the formal verification
+  and statement-protection pipeline.

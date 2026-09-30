@@ -1,5 +1,10 @@
-import PascalExtremes.TargetA
-import Mathlib
+module
+
+public import PascalExtremes.TargetA
+public import Mathlib
+
+public section
+
 
 namespace PascalExtremes
 
