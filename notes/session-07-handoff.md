@@ -52,61 +52,61 @@ Final result:
 ## Exact theorem wording used
 
 The paper defines
-[
+\[
 G(N;m)=\gcd\left\{\binom Nk:0<k<N,\ m\mid k\right\}
-]
+\]
 for `m >= 2` and admissible rows `N > m` with `m | N`, and
-[
+\[
 r_p(m)=\min\{r\ge1:m<p^r\}.
-]
+\]
 
 ### Target A
 
 For every prime `p` and every `m >= 2` with `p ∤ m`,
-[
+\[
 \max_{\substack{N>m\\m\mid N}} v_p(G(N;m))=r_p(m).
-]
+\]
 
 The paper separately proves the universal upper bound and constructive attainment. For `r_p(m)=1` it uses the row `N=mp`. For `r=r_p(m)>=2`, it writes
-[
-m=A p^{r-1}+c,qquad 1\le A\le p-1,quad 1\le c<p^{r-1},
-]
+\[
+m=A p^{r-1}+c,\qquad 1\le A\le p-1,\quad 1\le c<p^{r-1},
+\]
 chooses `L ≡ r-1 (mod ord_m(p))` with `L >= 2r-2` and `L>r-1`, and uses
-[
+\[
 N=A p^L+c.
-]
+\]
 
 Only after this attainment proof does the paper define
-[
+\[
 T_p(m)=\min\{N>m:m\mid N, v_p(G(N;m))=r_p(m)\}.
-]
+\]
 
 ### Target B
 
 For every prime `p` and every integer `a >= 2`,
-[
+\[
 T_p(p^a+1)=p^{3a}+1.
-]
+\]
 
 The paper proves both exact halves used by the Lean development:
 
 1. Target-row attainment:
-[
+\[
 v_p(G(p^{3a}+1;p^a+1))=a+1.
-]
+\]
 The equality witness uses selected multiplier `d=p^(2a-1)`.
 
 2. Strict lower-row non-attainment:
 for every admissible `N<p^(3a)+1`,
-[
+\[
 v_p(G(N;p^a+1))\le a.
-]
+\]
 The proof contains the complete leading-digit split, the exceptional pattern, and the fixed fallback multiplier `p^(a-1)`.
 
 The equivalent least multiplier is stated as
-[
+\[
 p^{2a}-p^a+1=\Phi_6(p^a).
-]
+\]
 
 The example `T_2(5)=65` is included.
 
