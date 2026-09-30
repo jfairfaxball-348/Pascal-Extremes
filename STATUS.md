@@ -61,7 +61,18 @@ Date: 2026-09-30
   - Prior-art wording preserves Wu's exact-family status, McTague's known overlap and `(2,3,6)` example, and the unresolved Chung–Yang 2026 full-text caveat.
   - The formal-verification section records **PALOMAR-2026-09-30-000033**, version **1**, as verification/provenance evidence only.
   - Full Stage-7 build/audit details are in `notes/session-07-handoff.md`.
-- **Stage 8 — arXiv: NOT STARTED.**
+- **Stage 8 — arXiv preparation: COMPLETE TO THE AUTHENTICATED SUBMISSION BOUNDARY.**
+  - Current official arXiv Submission 1.5 requirements were rechecked on 2026-09-30 before packaging.
+  - The exact upload directory is `arxiv/stage-08/`, containing only `main.tex`, `references.bib`, and the matching generated `main.bbl`.
+  - Including both bibliography files is deliberate: current arXiv supports direct `.bib` processing but uses a matching `.bbl` preferentially when present.
+  - The exact bundle passed a clean TeX Live 2025/PDFLaTeX preflight both by regenerating BibTeX and by compiling from the packaged `main.bbl`; the final PDF is 13 pages with resolved citations/references and no box warnings.
+  - Rendered inspection found the two bibliography build routes pixel-identical on all 13 pages. The title, abstract, equations, theorem numbering, references, embedded fonts, page layout, and Palomar hyperlink were rechecked.
+  - The final theorem-level consistency check against `notes/proof.md`, the Lean theorem layer, and the Palomar statement surface found no mathematical discrepancy. Stage 8 made no theorem-scope or proof changes.
+  - Primary arXiv category: `math.NT`. No secondary category was selected.
+  - **No arXiv license has been selected.** License choice and right-to-submit certification are direct submitter actions and were not guessed.
+  - **No arXiv submission was created in this session.** This environment has no authenticated arXiv submission action/browser, so no arXiv identifier, submission date, endorsement status, moderation status, or acceptance status exists to record.
+  - The remaining user action is to log in to arXiv, upload the prepared bundle, verify arXiv's own compile/preview, enter the prepared metadata, choose/certify the license, and perform the final Submit Article confirmation.
+  - Full package hashes, CI run IDs, title/abstract, category, Palomar/provenance record, literature caveats, and exact remaining submission steps are in `notes/session-08-handoff.md`.
 
 ## Claim status
 
@@ -80,4 +91,4 @@ The Lean theorem layer now formalises the Stage-3 argument using Mathlib's Kumme
 
 ## Next action
 
-Begin **Stage 8 — final arXiv preparation and submission** in a fresh session. Re-read `notes/session-07-handoff.md`, perform the arXiv-specific source/package and metadata checks, preserve all prior-art and Chung–Yang caveats, and do not alter the proved theorem scope without a new mathematical audit.
+Complete the direct authenticated arXiv submission using the exact prepared bundle recorded in `notes/session-08-handoff.md`. Do not record a license, arXiv identifier, submission date, endorsement result, moderation result, or announcement status until arXiv actually supplies it.
