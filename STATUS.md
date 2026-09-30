@@ -47,11 +47,15 @@ Date: 2026-09-30
   - Focused examples include `T 2 5 = 65`.
   - GitHub Actions builds from a fresh checkout with `lake build` and rejects `sorry`/`admit` in the project Lean sources. The final Stage-5 branch CI is required green before merge.
   - Formalisation details and provenance are in `notes/formalisation-5.md`.
-- **Stage 6 — Palomar: IN PROGRESS.**
-  - Initial submission at commit `3f234e061d44fcd2ececab1280788e7a39c90822` passed Palomar mechanical verification on 2026-09-30.
-  - Automated review identified one blocking repository-status issue: the public README still described Targets A and B as conjectural and Stages 3–8 as unstarted.
-  - The README has now been corrected to distinguish completed proof/formalisation from pending registration and publication.
-  - Registration has **not** yet occurred; a corrected commit must be submitted as a new Palomar submission with the existing Palomar ID left blank unless the result is already public.
+- **Stage 6 — Palomar: IN PROGRESS; CORRECTED RESUBMISSION REQUIRED.**
+  - The current Palomar contract was rechecked against `PalomarPolicy@96b034cc31a72a63d4f4041911dce337a85c9a04`, `PalomarSubmission@65f0154ed776cd26c224254aa57b379137f28b0d`, and `PalomarTemplate@2891de4c48955af824969a263d31b25e7a9a1406`.
+  - The repository was migrated to Lean's module system as required by the 28 September contract update, preserving the existing proof layer with `@[expose] public section`.
+  - The original submitted candidate was `3f234e061d44fcd2ececab1280788e7a39c90822`. Its Mathlib-only `Challenge.lean` advertises `PascalExtremesPalomar.targetA_attainment`, `PascalExtremesPalomar.targetA`, and `PascalExtremesPalomar.targetB`; `Solution.lean` bridges directly to the Stage-5 theorems.
+  - Repository Lean CI passed at run 36690939241. The full Palomar predictive preflight passed at run 36690939932 with `status: pass`, no warnings/errors, and Lean, NanoDa, and con-ron all accepting the Solution.
+  - The first real Palomar submission was made on 2026-09-30T10:08:42Z using `comparator.json`; verification run 36700602189 completed successfully.
+  - Palomar's automated editorial review then identified one blocking issue only: the public README still described Targets A and B as conjectural and Stages 3–8 as unstarted. Registration was not offered for that submission.
+  - The README has now been corrected while preserving the verified Palomar packaging. No Palomar registry ID or version exists yet. The corrected repository commit must be submitted as a new Palomar submission, with the existing Palomar ID left blank unless the result is already public.
+  - Full packaging, workflow, submission, and review details are in `notes/palomar-packaging-6.md`.
 - **Stage 7 — paper: NOT STARTED.**
 - **Stage 8 — arXiv: NOT STARTED.**
 
@@ -72,4 +76,4 @@ The Lean theorem layer now formalises the Stage-3 argument using Mathlib's Kumme
 
 ## Next action
 
-Submit the corrected Stage-6 commit to Palomar as a **new submission**, leaving the existing Palomar ID blank unless this result is already in the public registry. Preserve the exact theorem statements and all prior-art/novelty caveats. Do not begin the research paper or arXiv work until registration succeeds.
+Use the corrected canonical repository state for a **new Palomar submission**, with `comparator.json` at the repository root and the existing Palomar ID left blank unless this result is already in the public registry. Preserve the exact theorem statements and all prior-art/novelty caveats. Do not begin the paper or arXiv stages until registration succeeds.
