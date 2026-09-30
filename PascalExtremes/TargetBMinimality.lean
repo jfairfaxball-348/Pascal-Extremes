@@ -391,4 +391,355 @@ private theorem targetB_fallback_choose_le
       dsimp [L]
       omega
 
+
+/-- Every multiplier below `q0` has an explicit selected coefficient of
+valuation at most `a`. This follows the Stage-3 leading split, switching
+to the fixed fallback `p^(a-1)` exactly when the leading split's coarse
+carry bound is not strict enough. -/
+theorem targetB_lower_multiplier_witness
+    {p a q : ℕ} (hp : p.Prime) (ha : 2 ≤ a)
+    (hq2 : 2 ≤ q) (hqlt : q < q0 p a) :
+    ∃ d, 0 < d ∧ d < q ∧
+      padicValNat p
+        (((p ^ a + 1) * q).choose ((p ^ a + 1) * d)) ≤ a := by
+  let Q := p ^ a
+  let m := Q + 1
+  let t := Nat.log p q
+  let P := p ^ t
+  let lam := q / P
+  let b := q % P
+  have hmpos : 0 < m := by dsimp [m]; omega
+  have hQpos : 0 < Q := by
+    dsimp [Q]
+    exact pow_pos hp.pos _
+  have hQgePbase : p ≤ Q := by
+    dsimp [Q]
+    calc
+      p = p ^ 1 := (pow_one p).symm
+      _ ≤ p ^ a := Nat.pow_le_pow_right hp.pos (by omega)
+  have hQgtPbase : p < Q := by
+    dsimp [Q]
+    calc
+      p = p ^ 1 := (pow_one p).symm
+      _ < p ^ a := Nat.pow_lt_pow_right hp.one_lt (by omega)
+  have hPpos : 0 < P := by
+    dsimp [P]
+    exact pow_pos hp.pos _
+  have hPleq : P ≤ q := by
+    dsimp [P, t]
+    exact Nat.pow_log_le_self p (by omega)
+  have hqLtPp : q < P * p := by
+    dsimp [P, t]
+    simpa [pow_succ, Nat.mul_comm] using Nat.lt_pow_succ_log_self hp.one_lt q
+  have hbLt : b < P := by
+    dsimp [b]
+    exact Nat.mod_lt _ hPpos
+  have hqDecomp : q = b + P * lam := by
+    dsimp [b, P, lam]
+    exact (Nat.mod_add_div q (p ^ t)).symm
+  have hlamPos : 0 < lam := by
+    by_contra h
+    have hlam0 : lam = 0 := Nat.eq_zero_of_not_pos h
+    rw [hlam0, mul_zero, add_zero] at hqDecomp
+    omega
+  have hlamLt : lam < p := by
+    by_contra h
+    have hpLam : p ≤ lam := Nat.le_of_not_gt h
+    have hmul : P * p ≤ P * lam := Nat.mul_le_mul_left P hpLam
+    have hPle : P * lam ≤ q := by omega
+    exact (Nat.not_le_of_gt hqLtPp) (hmul.trans hPle)
+  have hpowSucc : p ^ (a + 1) = p * Q := by
+    dsimp [Q]
+    rw [pow_succ, Nat.mul_comm]
+  by_cases hb0 : b = 0
+  · by_cases hlam1 : lam = 1
+    · have hqP : q = P := by
+        rw [hb0, hlam1, mul_one, zero_add] at hqDecomp
+        exact hqDecomp
+      have htpos : 0 < t := by
+        by_contra h
+        have ht0 : t = 0 := Nat.eq_zero_of_not_pos h
+        rw [hqP] at hq2
+        dsimp [P] at hq2
+        rw [ht0, pow_zero] at hq2
+        omega
+      let d := p ^ (t - 1)
+      have hdpos : 0 < d := by
+        dsimp [d]
+        exact pow_pos hp.pos _
+      have hdlt : d < q := by
+        rw [hqP]
+        dsimp [d, P]
+        exact Nat.pow_lt_pow_right hp.one_lt (by omega)
+      refine ⟨d, hdpos, hdlt, ?_⟩
+      have hqPow : q = p ^ t := by simpa [P] using hqP
+      subst q
+      simpa [d] using targetB_pure_power_witness_le hp ha (by omega : 1 ≤ t)
+    · have hlam2 : 2 ≤ lam := by omega
+      let d := P
+      have hdpos : 0 < d := by simpa [d] using hPpos
+      have hdlt : d < q := by
+        rw [hqDecomp, hb0, zero_add]
+        dsimp [d]
+        have hlt : P < P * lam := by
+          have := (Nat.mul_lt_mul_left hPpos).2 (show 1 < lam by omega)
+          simpa using this
+        exact hlt
+      refine ⟨d, hdpos, hdlt, ?_⟩
+      have hNform :
+          m * q = 0 + P * (m * lam) := by
+        rw [hqDecomp, hb0]
+        ring
+      have hkform :
+          m * d = 0 + P * m := by
+        dsimp [d]
+        ring
+      have hs : m * lam < p ^ (a + 1) := by
+        have hlamLe : lam ≤ p - 1 := by omega
+        have hle : m * lam ≤ m * (p - 1) :=
+          Nat.mul_le_mul_left m hlamLe
+        have hlast : m * (p - 1) < p * Q := by
+          dsimp [m]
+          nlinarith
+        rw [hpowSucc]
+        exact hle.trans_lt hlast
+      have hkn : m * d ≤ m * q :=
+        Nat.mul_le_mul_left m hdlt.le
+      have hval :=
+        padicVal_choose_le_of_common_suffix
+          (p := p) (n := m * q) (k := m * d)
+          (u := 0) (t := t) (s := m * lam) (x := m) (r := a)
+          hp (Nat.mul_pos hmpos (by omega)) hkn
+          (by simpa [P] using hPpos)
+          (by simpa [P] using hNform)
+          (by simpa [P] using hkform)
+          (by omega) hs
+      simpa [m, Q] using hval
+  · have hbpos : 0 < b := Nat.pos_of_ne_zero hb0
+    let X := (m * b) / P
+    let u := (m * b) % P
+    have hmbDecomp : m * b = u + P * X := by
+      dsimp [u, X]
+      exact (Nat.mod_add_div (m * b) P).symm
+    have huLt : u < P := by
+      dsimp [u]
+      exact Nat.mod_lt _ hPpos
+    have hXLt : X < m := by
+      dsimp [X]
+      rw [Nat.div_lt_iff_lt_mul hPpos]
+      exact (Nat.mul_lt_mul_left hmpos).2 hbLt
+    have hXleQ : X ≤ Q := by
+      dsimp [m] at hXLt
+      omega
+    have hbq : b < q := by
+      rw [hqDecomp]
+      have hPLamPos : 0 < P * lam := Nat.mul_pos hPpos hlamPos
+      omega
+    by_cases hgood : X + m * lam < p ^ (a + 1)
+    · refine ⟨b, hbpos, hbq, ?_⟩
+      have hNform :
+          m * q = u + P * (X + m * lam) := by
+        rw [hqDecomp]
+        calc
+          m * (b + P * lam) = m * b + P * (m * lam) := by ring
+          _ = (u + P * X) + P * (m * lam) := by rw [hmbDecomp]
+          _ = u + P * (X + m * lam) := by ring
+      have hkn : m * b ≤ m * q :=
+        Nat.mul_le_mul_left m hbq.le
+      have hval :=
+        padicVal_choose_le_of_common_suffix
+          (p := p) (n := m * q) (k := m * b)
+          (u := u) (t := t) (s := X + m * lam) (x := X) (r := a)
+          hp (Nat.mul_pos hmpos (by omega)) hkn huLt
+          (by simpa [P] using hNform)
+          (by simpa [P] using hmbDecomp)
+          (Nat.le_add_right _ _) hgood
+      simpa [m, Q] using hval
+    · have hbad : p ^ (a + 1) ≤ X + m * lam :=
+        Nat.le_of_not_gt hgood
+      have hlamEq : lam = p - 1 := by
+        by_contra hne
+        have hlamLe : lam ≤ p - 2 := by omega
+        have hle1 : m * lam ≤ m * (p - 2) :=
+          Nat.mul_le_mul_left m hlamLe
+        have hstrict : X + m * lam < p * Q := by
+          dsimp [m]
+          nlinarith
+        have : X + m * lam < p ^ (a + 1) := by
+          rw [hpowSucc]
+          exact hstrict
+        exact (Nat.not_lt_of_ge hbad) this
+      have hXlow : Q - p + 1 ≤ X := by
+        rw [hlamEq] at hbad
+        rw [hpowSucc] at hbad
+        dsimp [m] at hbad
+        omega
+      let h := P - b
+      have hhpos : 0 < h := by
+        dsimp [h]
+        exact Nat.sub_pos_of_lt hbLt
+      have hbh : b + h = P := by
+        dsimp [h]
+        exact Nat.add_sub_of_le hbLt.le
+      have hPXle : P * X ≤ m * b := by
+        dsimp [X]
+        exact Nat.mul_div_le (m * b) P
+      have hEplus : (Q - p + 1) + p = Q + 1 := by
+        omega
+      have hlowMul : P * (Q - p + 1) ≤ m * b :=
+        (Nat.mul_le_mul_left P hXlow).trans hPXle
+      have hmPSplit : m * P = m * b + m * h := by
+        rw [← Nat.mul_add, hbh]
+      have hPEq : P * (Q - p + 1) + p * P = m * P := by
+        dsimp [m]
+        calc
+          P * (Q - p + 1) + p * P =
+              P * ((Q - p + 1) + p) := by ring
+          _ = P * (Q + 1) := by rw [hEplus]
+          _ = (Q + 1) * P := Nat.mul_comm _ _
+      have hmhLe : m * h ≤ p * P := by
+        omega
+      have hpm : ¬ p ∣ m := by
+        dsimp [m, Q]
+        exact not_p_dvd_pow_add_one hp (by omega)
+      have hmhLt : m * h < p * P := by
+        refine lt_of_le_of_ne hmhLe ?_
+        intro heq
+        have hmDiv : m ∣ p * P := ⟨h, heq.symm⟩
+        have hpP : p * P = p ^ (t + 1) := by
+          dsimp [P]
+          rw [pow_succ]
+        have hcopBase : Nat.Coprime m p := by
+          rw [Nat.coprime_comm]
+          exact (hp.coprime_iff_not_dvd).2 hpm
+        have hcopPow : Nat.Coprime m (p ^ (t + 1)) :=
+          (Nat.coprime_pow_right_iff (by omega) m p).2 hcopBase
+        have hmOne : m ∣ 1 := by
+          apply Nat.Coprime.dvd_of_dvd_mul_right hcopPow
+          simpa [one_mul, ← hpP] using hmDiv
+        have hmLeOne : m ≤ 1 := Nat.le_of_dvd (by decide) hmOne
+        dsimp [m] at hmLeOne
+        omega
+      have ht0 : a ≤ t := by
+        by_contra h
+        have htlt : t < a := Nat.lt_of_not_ge h
+        have htpow : p ^ (t + 1) ≤ Q := by
+          dsimp [Q]
+          exact Nat.pow_le_pow_right hp.pos (by omega)
+        have hpP : p * P = p ^ (t + 1) := by
+          dsimp [P]
+          rw [pow_succ]
+        have hmLe : m ≤ m * h := by
+          have hh1 : 1 ≤ h := hhpos
+          nlinarith
+        dsimp [m] at hmLe
+        rw [hpP] at hmhLt
+        omega
+      have htlt2a : t < 2 * a := by
+        have hq0lt : q0 p a < p ^ (2 * a) :=
+          q0_lt_pow_two_a hp (by omega)
+        have hPlt : P < p ^ (2 * a) :=
+          hPleq.trans_lt (hqlt.trans hq0lt)
+        dsimp [P] at hPlt
+        exact (Nat.pow_lt_pow_iff_right hp.one_lt).mp hPlt
+      have ht1 : t ≤ 2 * a - 2 := by
+        have htLe : t ≤ 2 * a - 1 := by omega
+        by_contra h
+        have htEq : t = 2 * a - 1 := by omega
+        have hPowEq : p ^ (t + 1) = p ^ (2 * a) := by
+          congr 1
+          omega
+        have hqh : q + h = p ^ (t + 1) := by
+          rw [hqDecomp, hlamEq]
+          calc
+            b + P * (p - 1) + h =
+                (b + h) + P * (p - 1) := by omega
+            _ = P + P * (p - 1) := by rw [hbh]
+            _ = P * p := by
+              calc
+                P + P * (p - 1) = P * 1 + P * (p - 1) := by simp
+                _ = P * (1 + (p - 1)) := (Nat.mul_add _ _ _).symm
+                _ = P * p := by congr 1 <;> omega
+            _ = p ^ (t + 1) := by
+              dsimp [P]
+              rw [pow_succ]
+        have hQleH : Q ≤ h := by
+          have hq' := hqlt
+          dsimp [q0] at hq'
+          rw [hPowEq] at hqh
+          omega
+        have hP2 : p ^ (2 * a) = Q * Q := by
+          dsimp [Q]
+          rw [show 2 * a = a + a by omega, pow_add]
+        have hbig : p ^ (2 * a) < m * h := by
+          rw [hP2]
+          dsimp [m]
+          nlinarith
+        have hpP : p * P = p ^ (t + 1) := by
+          dsimp [P]
+          rw [pow_succ]
+        rw [hpP, hPowEq] at hmhLt
+        exact (Nat.not_lt_of_ge hbig.le) hmhLt
+      have hqh : q + h = p ^ (t + 1) := by
+        rw [hqDecomp, hlamEq]
+        calc
+          b + P * (p - 1) + h =
+              (b + h) + P * (p - 1) := by omega
+          _ = P + P * (p - 1) := by rw [hbh]
+          _ = P * p := by
+            calc
+              P + P * (p - 1) = P * 1 + P * (p - 1) := by simp
+              _ = P * (1 + (p - 1)) := (Nat.mul_add _ _ _).symm
+              _ = P * p := by congr 1 <;> omega
+          _ = p ^ (t + 1) := by
+            dsimp [P]
+            rw [pow_succ]
+      have hhsmall : h < p ^ (a - 1) := by
+        let s := t + 1 - a
+        have hsLe : s ≤ a - 1 := by
+          dsimp [s]
+          omega
+        have hpowFact : p ^ (t + 1) = Q * p ^ s := by
+          dsimp [Q, s]
+          rw [← pow_add]
+          congr 1
+          omega
+        have hQhLt : Q * h < p ^ (t + 1) := by
+          have hmGtQ : Q < m := by dsimp [m]; omega
+          have hmulLt : Q * h < m * h :=
+            (Nat.mul_lt_mul_right hhpos).2 hmGtQ
+          have hpP : p * P = p ^ (t + 1) := by
+            dsimp [P]
+            rw [pow_succ]
+          exact hmulLt.trans (by simpa [hpP] using hmhLt)
+        rw [hpowFact] at hQhLt
+        have hslt : h < p ^ s :=
+          (Nat.mul_lt_mul_left hQpos).mp hQhLt
+        exact hslt.trans_le
+          (Nat.pow_le_pow_right hp.pos hsLe)
+      let d := p ^ (a - 1)
+      have hdpos : 0 < d := by
+        dsimp [d]
+        exact pow_pos hp.pos _
+      have hptq : p ^ t < q := by
+        have hhPt : h < p ^ t := hhsmall.trans_le
+          (Nat.pow_le_pow_right hp.pos (by omega))
+        have hpowTwo : 2 * p ^ t ≤ p ^ (t + 1) := by
+          rw [pow_succ]
+          simpa [Nat.mul_comm] using Nat.mul_le_mul_left (p ^ t) hp.two_le
+        omega
+      have hdlt : d < q := by
+        dsimp [d]
+        exact (Nat.pow_le_pow_right hp.pos (by omega)).trans_lt hptq
+      refine ⟨d, hdpos, hdlt, ?_⟩
+      have hfb :=
+        targetB_fallback_choose_le hp ha ht0 ht1 hhpos hhsmall hqh
+          (by
+            dsimp [m, Q] at hmhLt ⊢
+            have hpP : p * P = p ^ (t + 1) := by
+              dsimp [P]
+              rw [pow_succ]
+            simpa [hpP] using hmhLt)
+      simpa [d] using hfb
+
 end PascalExtremes
