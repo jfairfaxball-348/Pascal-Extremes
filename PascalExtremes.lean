@@ -5,3 +5,4 @@ import PascalExtremes.Powers
 import PascalExtremes.CarryBounds
 import PascalExtremes.TargetA
 import PascalExtremes.TargetAAttainment
+import PascalExtremes.TargetB
