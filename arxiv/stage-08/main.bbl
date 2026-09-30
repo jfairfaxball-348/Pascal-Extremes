@@ -1,0 +1,60 @@
+\begin{thebibliography}{Kum52}
+
+\bibitem[CY26]{ChungYang2026}
+Chan-Liang Chung and Tse-Chung Yang.
+\newblock The greatest common divisor of binomial coefficients with non-coprime
+  indices.
+\newblock {\em Mediterranean Journal of Mathematics}, 23:209, 2026.
+\newblock Published 27 September 2026.
+
+\bibitem[CYZ23]{ChiuYuanZhou2023}
+Sunben Chiu, Pingzhi Yuan, and Tao Zhou.
+\newblock On the greatest common divisor of binomial coefficients.
+\newblock {\em Bulletin of the Korean Mathematical Society}, 60(4):863--872,
+  2023.
+
+\bibitem[CYZ25]{ChungYangZhou2025}
+Chan-Liang Chung, Tse-Chung Yang, and Kanglun Zhou.
+\newblock The greatest common divisor of sets of binomial coefficients with
+  restrictions.
+\newblock {\em Contemporary Mathematics}, 6(1):971--985, 2025.
+
+\bibitem[Gra97]{Granville1997}
+Andrew Granville.
+\newblock Arithmetic properties of binomial coefficients i: Binomial
+  coefficients modulo prime powers.
+\newblock In {\em Organic Mathematics}, volume~20 of {\em CMS Conference
+  Proceedings}. American Mathematical Society, Providence, RI, 1997.
+
+\bibitem[Hon16]{Hong2016}
+Siao Hong.
+\newblock The greatest common divisor of certain binomial coefficients.
+\newblock {\em Comptes Rendus Math{\'e}matique}, 354(8):756--761, 2016.
+
+\bibitem[Kum52]{Kummer1852}
+Ernst~Eduard Kummer.
+\newblock {\"U}ber die erg{\"a}nzungss{\"a}tze zu den allgemeinen
+  reciprocit{\"a}tsgesetzen.
+\newblock {\em Journal f{\"u}r die reine und angewandte Mathematik},
+  44:93--146, 1852.
+
+\bibitem[McT17]{McTague2017}
+Carl McTague.
+\newblock On the greatest common divisor of binomial coefficients
+  $\binom{n}{q},\binom{n}{2q},\binom{n}{3q},\ldots$.
+\newblock {\em American Mathematical Monthly}, 124(4):353--356, 2017.
+\newblock arXiv:1510.06696, version 5 (2018).
+
+\bibitem[Ram09]{Ram1909}
+B.~Ram.
+\newblock Common factors of $n!/m!(n-m)!$.
+\newblock {\em Journal of the Indian Mathematical Club (Madras)}, 1:39--43,
+  1909.
+
+\bibitem[Wu26]{Wu2026}
+Chai~Wah Wu.
+\newblock Computing the greatest common divisor of binomial coefficients
+  $\binom{mn}{mk}$, 2026.
+\newblock Version 2, 4 August 2026.
+
+\end{thebibliography}
