@@ -8,3 +8,4 @@ import PascalExtremes.Scaling
 import PascalExtremes.TargetAAttainment
 import PascalExtremes.TargetB
 import PascalExtremes.TargetBMinimality
+import PascalExtremes.Examples
