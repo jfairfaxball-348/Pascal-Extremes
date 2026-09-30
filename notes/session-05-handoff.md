@@ -69,7 +69,7 @@ lake build
 test "$(grep -R -E '\b(sorry|admit)\b' --include='*.lean' PascalExtremes PascalExtremes.lean | wc -l)" -eq 0
 ```
 
-Only `.lake/packages` is cached; the project's own build output is not restored. No finite experiment is used as a formal proof step.
+The CI job starts from a fresh checkout and restores no repository build output. No finite experiment is used as a formal proof step.
 
 ## Stage-5 gate
 
