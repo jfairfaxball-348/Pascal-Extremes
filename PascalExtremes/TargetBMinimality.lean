@@ -504,14 +504,17 @@ theorem targetB_lower_multiplier_witness
         dsimp [d]
         ring
       have hs : m * lam < p ^ (a + 1) := by
-        have hlamLe : lam ≤ p - 1 := by omega
-        have hle : m * lam ≤ m * (p - 1) :=
-          Nat.mul_le_mul_left m hlamLe
-        have hlast : m * (p - 1) < p * Q := by
-          dsimp [m]
-          nlinarith only [hQgtPbase, hp.one_lt]
+        have hlamQ : lam < Q := hlamLt.trans hQgtPbase
+        have hstep : lam + 1 ≤ p := Nat.succ_le_iff.mpr hlamLt
         rw [hpowSucc]
-        exact hle.trans_lt hlast
+        calc
+          m * lam = Q * lam + lam := by
+            dsimp [m]
+            ring
+          _ < Q * lam + Q := Nat.add_lt_add_left hlamQ _
+          _ = Q * (lam + 1) := by ring
+          _ ≤ Q * p := Nat.mul_le_mul_left Q hstep
+          _ = p * Q := Nat.mul_comm _ _
       have hkn : m * d ≤ m * q :=
         Nat.mul_le_mul_left m hdlt.le
       have hval :=
@@ -572,9 +575,19 @@ theorem targetB_lower_multiplier_witness
         have hlamLe : lam ≤ p - 2 := by omega
         have hle1 : m * lam ≤ m * (p - 2) :=
           Nat.mul_le_mul_left m hlamLe
+        have hlamSucc : lam + 1 ≤ p - 1 := by omega
+        have hlamQ : lam < Q := hlamLt.trans hQgtPbase
         have hstrict : X + m * lam < p * Q := by
-          dsimp [m] at hle1 ⊢
-          nlinarith only [hXleQ, hle1, hQgtPbase, hp.one_lt]
+          calc
+            X + m * lam ≤ Q + (Q + 1) * lam := by
+              exact Nat.add_le_add hXleQ hle1
+            _ = Q * (lam + 1) + lam := by ring
+            _ ≤ Q * (p - 1) + lam :=
+              Nat.add_le_add_right (Nat.mul_le_mul_left Q hlamSucc) _
+            _ < Q * (p - 1) + Q := Nat.add_lt_add_left hlamQ _
+            _ = Q * ((p - 1) + 1) := by ring
+            _ = Q * p := by rw [Nat.sub_add_cancel hp.one_le]
+            _ = p * Q := Nat.mul_comm _ _
         have : X + m * lam < p ^ (a + 1) := by
           rw [hpowSucc]
           exact hstrict
@@ -583,6 +596,20 @@ theorem targetB_lower_multiplier_witness
         rw [hlamEq] at hbad
         rw [hpowSucc] at hbad
         dsimp [m] at hbad
+        let E := Q - p + 1
+        let r := p - 1
+        have hpEq : p = r + 1 := by
+          dsimp [r]
+          omega
+        have hQEq : Q = E + r := by
+          dsimp [E, r]
+          omega
+        have hid : p * Q = E + (Q + 1) * (p - 1) := by
+          rw [hpEq, hQEq]
+          dsimp [r]
+          ring
+        rw [hid] at hbad
+        dsimp [E] at hbad
         omega
       let h := P - b
       have hhpos : 0 < h := by
@@ -618,7 +645,9 @@ theorem targetB_lower_multiplier_witness
         have hmDiv : m ∣ p * P := ⟨h, heq.symm⟩
         have hpP : p * P = p ^ (t + 1) := by
           dsimp [P]
-          rw [pow_succ]
+          calc
+            p * p ^ t = p ^ t * p := Nat.mul_comm _ _
+            _ = p ^ (t + 1) := (pow_succ p t).symm
         have hcopBase : Nat.Coprime m p := by
           rw [Nat.coprime_comm]
           exact (hp.coprime_iff_not_dvd).2 hpm
@@ -631,17 +660,18 @@ theorem targetB_lower_multiplier_witness
         dsimp [m] at hmLeOne
         omega
       have ht0 : a ≤ t := by
-        by_contra h
-        have htlt : t < a := Nat.lt_of_not_ge h
+        by_contra hnotT
+        have htlt : t < a := Nat.lt_of_not_ge hnotT
         have htpow : p ^ (t + 1) ≤ Q := by
           dsimp [Q]
           exact Nat.pow_le_pow_right hp.pos (by omega)
         have hpP : p * P = p ^ (t + 1) := by
           dsimp [P]
-          rw [pow_succ]
+          calc
+            p * p ^ t = p ^ t * p := Nat.mul_comm _ _
+            _ = p ^ (t + 1) := (pow_succ p t).symm
         have hmLe : m ≤ m * h := by
-          have hh1 : 1 ≤ h := hhpos
-          nlinarith
+          simpa using Nat.mul_le_mul_left m (show 1 ≤ h by omega)
         dsimp [m] at hmLe
         rw [hpP] at hmhLt
         omega
@@ -654,7 +684,7 @@ theorem targetB_lower_multiplier_witness
         exact (Nat.pow_lt_pow_iff_right hp.one_lt).mp hPlt
       have ht1 : t ≤ 2 * a - 2 := by
         have htLe : t ≤ 2 * a - 1 := by omega
-        by_contra h
+        by_contra hnotT1
         have htEq : t = 2 * a - 1 := by omega
         have hPowEq : p ^ (t + 1) = p ^ (2 * a) := by
           congr 1
@@ -683,11 +713,17 @@ theorem targetB_lower_multiplier_witness
           rw [show 2 * a = a + a by omega, pow_add]
         have hbig : p ^ (2 * a) < m * h := by
           rw [hP2]
+          have hstrictQ : Q * Q < (Q + 1) * Q :=
+            (Nat.mul_lt_mul_right hQpos).2 (Nat.lt_succ_self Q)
+          have hleH : (Q + 1) * Q ≤ (Q + 1) * h :=
+            Nat.mul_le_mul_left (Q + 1) hQleH
           dsimp [m]
-          nlinarith
+          exact hstrictQ.trans_le hleH
         have hpP : p * P = p ^ (t + 1) := by
           dsimp [P]
-          rw [pow_succ]
+          calc
+            p * p ^ t = p ^ t * p := Nat.mul_comm _ _
+            _ = p ^ (t + 1) := (pow_succ p t).symm
         rw [hpP, hPowEq] at hmhLt
         exact (Nat.not_lt_of_ge hbig.le) hmhLt
       have hqh : q + h = p ^ (t + 1) := by
@@ -720,7 +756,9 @@ theorem targetB_lower_multiplier_witness
             (Nat.mul_lt_mul_right hhpos).2 hmGtQ
           have hpP : p * P = p ^ (t + 1) := by
             dsimp [P]
-            rw [pow_succ]
+            calc
+              p * p ^ t = p ^ t * p := Nat.mul_comm _ _
+              _ = p ^ (t + 1) := (pow_succ p t).symm
           exact hmulLt.trans (by simpa [hpP] using hmhLt)
         rw [hpowFact] at hQhLt
         have hslt : h < p ^ s :=
@@ -748,7 +786,9 @@ theorem targetB_lower_multiplier_witness
             dsimp [m, Q] at hmhLt ⊢
             have hpP : p * P = p ^ (t + 1) := by
               dsimp [P]
-              rw [pow_succ]
+              calc
+                p * p ^ t = p ^ t * p := Nat.mul_comm _ _
+                _ = p ^ (t + 1) := (pow_succ p t).symm
             simpa [hpP] using hmhLt)
       simpa [d] using hfb
 
