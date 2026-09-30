@@ -4,9 +4,9 @@ Date: 2026-09-30
 
 ## Gate
 
-**BLOCKED — packaging, predictive verification, and real Palomar intake are complete, but verification/review/registration have not yet finished.**
+**PROCEED — Palomar registration is complete.**
 
-The previous write-access-proof blocker was cleared by the user. The real submission was accepted on 2026-09-30T10:08:42Z for `jfairfaxball-348/Pascal-Extremes@3f234e061d44fcd2ececab1280788e7a39c90822` with `comparator.json`. Palomar dispatched verification run `36700602189`. The `profile` job has succeeded; the privileged `verify` job is currently queued. No Palomar registry ID, version, or entry link is claimed yet.
+The previous write-access-proof blocker was cleared by the user. The real submission was accepted on 2026-09-30T10:08:42Z for `jfairfaxball-348/Pascal-Extremes@3f234e061d44fcd2ececab1280788e7a39c90822` with `comparator.json`; Palomar verification run `36700602189` subsequently completed successfully. After the corrected public-facing repository state passed review, the theorem package was registered publicly as **PALOMAR-2026-09-30-000033**, version **1**. Public entry: https://palomar-registry.org/entry.html?id=PALOMAR-2026-09-30-000033&version=1 . This registration is evidence of the registered Lean-verified theorem package, not evidence of historical priority, novelty, or uniqueness.
 
 ## Current contract pins checked
 
@@ -129,30 +129,25 @@ An early repository build, run 36689271330, also exposed a module-migration tran
 
 No claim of uniqueness, historical priority, or novelty is inferred from Lean verification or Palomar preflight.
 
-## Real submission and current state
+## Real submission and registration result
 
-After the full predictive preflight passed, the user completed the real Palomar intake for the exact approved values:
+After the full predictive preflight passed, the user completed the real Palomar intake for the approved theorem package:
 
 - repository: `jfairfaxball-348/Pascal-Extremes`
-- commit: `3f234e061d44fcd2ececab1280788e7a39c90822`
+- submitted candidate: `3f234e061d44fcd2ececab1280788e7a39c90822`
 - Comparator configuration: `comparator.json`
-- authorization relationship: `I am a responsible author or maintainer` / API value `maintainer`
 - submitted: `2026-09-30T10:08:42Z`
-
-Palomar dispatched:
-
 - verification run: https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/36700602189
-- verifier workflow commit: `65f0154ed776cd26c224254aa57b379137f28b0d`
-- workflow name: `Verify submission qcaecxdihh4i`
-- `profile` job: completed successfully
-- privileged `verify` job: queued at the last check
+- final public Palomar ID: **PALOMAR-2026-09-30-000033**
+- version: **1**
+- public registry entry: https://palomar-registry.org/entry.html?id=PALOMAR-2026-09-30-000033&version=1
 
-This is the real registry verification path, not the repository's predictive preflight. No registry ID/version is recorded until the real run, review, and final registration complete.
+The public registration is recorded here as a verification/provenance fact only. It does not establish that the mathematical statements are historically new, first, unique, or previously unknown. The Stage-4 literature conclusions and the Chung–Yang 2026 residual caveat remain unchanged.
 
-## Next Stage-6 action
+## Stage-6 conclusion
 
-Monitor real verification run `36700602189`. Once mechanical verification finishes, continue through Palomar's private review flow. The review is private to the submission holder until registration; do not publish it prematurely.
+Stage 6 is **COMPLETE — PROCEED**. The paper stage may now begin. Stage 8 (arXiv preparation/submission) remains out of scope until Stage 7 is complete.
 
-Palomar requires showing the completed review to the user and obtaining a fresh explicit registration decision before permanent registration. Only after successful registration should the real Palomar ID, version, and public entry URL be recorded and the Stage-6 gate changed to **PROCEED**.
+## Next action
 
-Do not begin Stage 7 until a real registry response supplies the Palomar ID and version.
+Proceed to Stage 7 only: prepare the research-paper draft, build and inspect it, audit all theorem wording against the informal proof and Lean layer, and preserve every prior-art and novelty caveat. Do not begin arXiv submission during Stage 7.
