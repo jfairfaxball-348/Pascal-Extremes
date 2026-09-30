@@ -1,6 +1,6 @@
 name = "pascal-extremes"
 version = "0.1.0"
-defaultTargets = ["PascalExtremes"]
+defaultTargets = ["PascalExtremes", "Challenge", "Solution"]
 
 [[require]]
 name = "mathlib"
@@ -9,3 +9,11 @@ rev = "bd6c1abe5f55b6c3856172d6a23703e0888f5286"
 
 [[lean_lib]]
 name = "PascalExtremes"
+
+[[lean_lib]]
+name = "Challenge"
+roots = ["Challenge"]
+
+[[lean_lib]]
+name = "Solution"
+roots = ["Solution"]
