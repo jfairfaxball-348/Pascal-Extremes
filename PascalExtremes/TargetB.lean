@@ -77,7 +77,7 @@ lemma coprime_pow_two_a_m
   rw [Nat.coprime_pow_left_iff (by omega)]
   exact (hp.coprime_iff_not_dvd).2 (not_p_dvd_pow_add_one hp ha)
 
-private lemma q0_row_admissible
+lemma q0_row_admissible
     {p a : ℕ} (hp : p.Prime) (ha : 2 ≤ a) :
     AdmissibleRow (p ^ a + 1) (p ^ (3 * a) + 1) := by
   have hid := mul_q0_eq_pow_three_add_one hp (by omega : 1 ≤ a)
