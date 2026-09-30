@@ -5,7 +5,7 @@ public import PascalExtremes.Powers
 public import PascalExtremes.CarryBounds
 public import Mathlib.Tactic
 
-public section
+@[expose] public section
 
 
 namespace PascalExtremes

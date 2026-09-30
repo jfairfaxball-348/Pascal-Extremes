@@ -2,7 +2,7 @@ module
 
 public import Mathlib.Data.Nat.Digits.Lemmas
 
-public section
+@[expose] public section
 
 
 namespace PascalExtremes

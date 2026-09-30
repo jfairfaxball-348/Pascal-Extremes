@@ -3,7 +3,7 @@ module
 public import PascalExtremes.TargetA
 public import Mathlib
 
-public section
+@[expose] public section
 
 
 namespace PascalExtremes

@@ -4,7 +4,7 @@ public import PascalExtremes.TargetB
 public import PascalExtremes.Scaling
 public import Mathlib
 
-public section
+@[expose] public section
 
 
 namespace PascalExtremes

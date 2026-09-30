@@ -4,7 +4,7 @@ public import Mathlib.Algebra.GCDMonoid.Finset
 public import Mathlib.Data.Nat.Choose.Basic
 public import Mathlib.NumberTheory.Padics.PadicVal.Basic
 
-public section
+@[expose] public section
 
 
 namespace PascalExtremes

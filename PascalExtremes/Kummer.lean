@@ -4,7 +4,7 @@ public import PascalExtremes.Basic
 public import PascalExtremes.Digits
 public import Mathlib.NumberTheory.Padics.PadicVal.Basic
 
-public section
+@[expose] public section
 
 
 namespace PascalExtremes

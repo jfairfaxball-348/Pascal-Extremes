@@ -2,7 +2,7 @@ module
 
 public import PascalExtremes
 
-public section
+@[expose] public section
 
 /-!
 # Pascal Extremes — Palomar proved surface

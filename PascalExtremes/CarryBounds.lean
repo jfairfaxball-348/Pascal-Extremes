@@ -4,7 +4,7 @@ public import PascalExtremes.Kummer
 public import Mathlib.Data.Nat.Log
 public import Mathlib.Tactic
 
-public section
+@[expose] public section
 
 
 namespace PascalExtremes

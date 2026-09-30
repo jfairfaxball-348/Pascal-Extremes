@@ -3,7 +3,7 @@ module
 public import PascalExtremes.TargetBMinimality
 public import Mathlib.Tactic
 
-public section
+@[expose] public section
 
 
 namespace PascalExtremes
