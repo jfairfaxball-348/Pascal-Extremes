@@ -47,15 +47,15 @@ Date: 2026-09-30
   - Focused examples include `T 2 5 = 65`.
   - GitHub Actions builds from a fresh checkout with `lake build` and rejects `sorry`/`admit` in the project Lean sources. The final Stage-5 branch CI is required green before merge.
   - Formalisation details and provenance are in `notes/formalisation-5.md`.
-- **Stage 6 — Palomar: SUBMITTED; VERIFICATION/REVIEW PENDING. Gate: BLOCKED.**
+- **Stage 6 — Palomar: IN PROGRESS; CORRECTED RESUBMISSION REQUIRED.**
   - The current Palomar contract was rechecked against `PalomarPolicy@96b034cc31a72a63d4f4041911dce337a85c9a04`, `PalomarSubmission@65f0154ed776cd26c224254aa57b379137f28b0d`, and `PalomarTemplate@2891de4c48955af824969a263d31b25e7a9a1406`.
   - The repository was migrated to Lean's module system as required by the 28 September contract update, preserving the existing proof layer with `@[expose] public section`.
-  - The immutable Palomar candidate is `3f234e061d44fcd2ececab1280788e7a39c90822`. Its Mathlib-only `Challenge.lean` advertises `PascalExtremesPalomar.targetA_attainment`, `PascalExtremesPalomar.targetA`, and `PascalExtremesPalomar.targetB`; `Solution.lean` bridges directly to the Stage-5 theorems.
+  - The original submitted candidate was `3f234e061d44fcd2ececab1280788e7a39c90822`. Its Mathlib-only `Challenge.lean` advertises `PascalExtremesPalomar.targetA_attainment`, `PascalExtremesPalomar.targetA`, and `PascalExtremesPalomar.targetB`; `Solution.lean` bridges directly to the Stage-5 theorems.
   - Repository Lean CI passed at run 36690939241. The full Palomar predictive preflight passed at run 36690939932 with `status: pass`, no warnings/errors, and Lean, NanoDa, and con-ron all accepting the Solution.
-  - The verifier used Lean `v4.35.0-rc2` / Lean commit `11acb17ec6b07a8f9e9173e6845197929540936b`, whose built-in `lake comparator` is the Comparator actually exercised, and Mathlib `bd6c1abe5f55b6c3856172d6a23703e0888f5286`.
-  - Real Palomar intake was completed by the user on 2026-09-30T10:08:42Z for the exact immutable candidate and `comparator.json`. Palomar dispatched verification run 36700602189 in `PalomarRegistry/PalomarSubmission`; the profile job has succeeded and the privileged `verify` job is currently queued.
-  - No Palomar registry ID or version exists yet. Stage 6 remains blocked only pending completion of the real mechanical run, private review, the protocol-required explicit registration decision, and successful registration.
-  - Full packaging, workflow, submission, and pending-registration details are in `notes/palomar-packaging-6.md`.
+  - The first real Palomar submission was made on 2026-09-30T10:08:42Z using `comparator.json`; verification run 36700602189 completed successfully.
+  - Palomar's automated editorial review then identified one blocking issue only: the public README still described Targets A and B as conjectural and Stages 3–8 as unstarted. Registration was not offered for that submission.
+  - The README has now been corrected while preserving the verified Palomar packaging. No Palomar registry ID or version exists yet. The corrected repository commit must be submitted as a new Palomar submission, with the existing Palomar ID left blank unless the result is already public.
+  - Full packaging, workflow, submission, and review details are in `notes/palomar-packaging-6.md`.
 - **Stage 7 — paper: NOT STARTED.**
 - **Stage 8 — arXiv: NOT STARTED.**
 
@@ -76,4 +76,4 @@ The Lean theorem layer now formalises the Stage-3 argument using Mathlib's Kumme
 
 ## Next action
 
-Continue **Stage 6 only** from the live Palomar submission for immutable candidate `3f234e061d44fcd2ececab1280788e7a39c90822`, submitted 2026-09-30T10:08:42Z with verification run 36700602189. Do not repack or move to the paper stage unless the current Palomar contract changes. After verification/editorial review, show the private review to the user and obtain the protocol-required fresh explicit registration decision before registration. Do not begin paper or arXiv work until a real Palomar registry response supplies an ID/version.
+Use the corrected canonical repository state for a **new Palomar submission**, with `comparator.json` at the repository root and the existing Palomar ID left blank unless this result is already in the public registry. Preserve the exact theorem statements and all prior-art/novelty caveats. Do not begin the paper or arXiv stages until registration succeeds.
