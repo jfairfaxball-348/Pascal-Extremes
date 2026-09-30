@@ -53,16 +53,21 @@ private lemma mul_q0_eq_pow_three_add_one
     dsimp [q0, S, Q]
     rw [hpow2]
   rw [hq, hpow3]
-  nlinarith
+  have hS' : S + Q = Q * Q := by simpa [Nat.add_comm] using hS
+  calc
+    (Q + 1) * (S + 1) = Q * S + (Q + S) + 1 := by ring
+    _ = Q * S + Q * Q + 1 := by rw [hS]
+    _ = Q * (S + Q) + 1 := by ring
+    _ = Q * (Q * Q) + 1 := by rw [hS']
+    _ = Q * Q * Q + 1 := by ring
 
 private lemma not_p_dvd_pow_add_one
     {p a : ℕ} (hp : p.Prime) (ha : 1 ≤ a) :
     ¬ p ∣ p ^ a + 1 := by
-  intro h
+  rw [Nat.dvd_iff_mod_eq_zero]
   have hpPow : p ∣ p ^ a := dvd_pow_self p (by omega)
-  have hpOne : p ∣ 1 := by
-    exact (Nat.dvd_add_iff_right hpPow).mp (by simpa [Nat.add_comm] using h)
-  exact (Nat.not_dvd_one hp.one_lt.ne) hpOne
+  rw [Nat.add_mod, Nat.mod_eq_zero_of_dvd hpPow, zero_add]
+  exact Nat.mod_eq_of_lt hp.one_lt
 
 private lemma coprime_pow_two_a_m
     {p a : ℕ} (hp : p.Prime) (ha : 1 ≤ a) :
@@ -76,16 +81,8 @@ private lemma q0_row_admissible
   have hid := mul_q0_eq_pow_three_add_one hp (by omega : 1 ≤ a)
   refine ⟨?_, ?_⟩
   · have hq2 : 2 ≤ q0 p a := by
-      have hQ : 2 ≤ p ^ a := by
-        have hp2 : 2 ≤ p := hp.two_le
-        have hpa : p ≤ p ^ a := by
-          calc
-            p = p ^ 1 := (pow_one p).symm
-            _ ≤ p ^ a := Nat.pow_le_pow_right hp.pos (by omega)
-        omega
-      have hlt := q0_lt_pow_two_a hp (by omega : 1 ≤ a)
-      have hpos := q0_pos hp (by omega : 1 ≤ a)
-      dsimp [q0] at *
+      have hpow := pow_a_lt_pow_two_a hp (by omega : 1 ≤ a)
+      simp only [q0]
       omega
     rw [← hid]
     have hmpos : 0 < p ^ a + 1 := by positivity
@@ -101,8 +98,10 @@ private lemma selected_multiplier_bounds
   have hmpos : 0 < p ^ a + 1 := by positivity
   have hid := mul_q0_eq_pow_three_add_one hp (by omega : 1 ≤ a)
   have hdpos : 0 < d := by
-    rw [hkd] at hk
-    nlinarith
+    by_contra h
+    have hd0 : d = 0 := Nat.eq_zero_of_not_pos h
+    rw [hd0, mul_zero] at hkd
+    exact (Nat.ne_of_gt hk.1) hkd
   have hdlt : d < q0 p a := by
     rw [← hid] at hk
     rw [hkd] at hk
@@ -140,7 +139,8 @@ private lemma selected_residue_gt_one
     exact hdlt.trans (q0_lt_pow_two_a hp (by omega))
   by_contra hnot
   have hle : k % p ^ i ≤ 1 := Nat.le_of_not_gt hnot
-  have hz : k % p ^ i = 0 ∨ k % p ^ i = 1 := by omega
+  have hz : k % p ^ i = 0 ∨ k % p ^ i = 1 :=
+    Nat.le_one_iff_eq_zero_or_eq_one.mp hle
   rcases hz with hz | ho
   · have hpidk : p ^ i ∣ k :=
       (Nat.dvd_iff_mod_eq_zero).2 hz
@@ -187,7 +187,10 @@ private lemma selected_residue_gt_one
         (by simpa [Nat.mul_comm] using hdivDiff)
     have hdiffPos : 0 < q0 p a - d := Nat.sub_pos_of_lt hdlt
     have hdiffLt : q0 p a - d < P2 := by
-      exact (Nat.sub_lt (q0_pos hp (by omega)) hdpos).trans_le hdltP2.le
+      exact (Nat.sub_lt (q0_pos hp (by omega)) hdpos).trans
+        (by
+          dsimp [P2]
+          exact q0_lt_pow_two_a hp (by omega))
     have hP2le : P2 ≤ q0 p a - d :=
       Nat.le_of_dvd hdiffPos hP2diff
     omega
@@ -235,7 +238,7 @@ private theorem targetB_lower_bound_at_target
             calc
               p = p ^ 1 := (pow_one p).symm
               _ ≤ p ^ i := Nat.pow_le_pow_right hp.pos hiPos
-      exact Nat.mod_eq_of_lt hpi1
+      simp [Nat.mod_eq_of_lt hpi1]
     have hkres : 1 < k % p ^ i :=
       selected_residue_gt_one hp ha hk hi'.1 hi'.2
     have hcarry : CarryAt p (p ^ (3 * a) + 1) k i :=
@@ -258,7 +261,9 @@ form of Kummer. -/
 theorem targetB_attainment
     {p a : ℕ} (hp : p.Prime) (ha : 2 ≤ a) :
     padicValNat p (G (p ^ (3 * a) + 1) (p ^ a + 1)) = a + 1 := by
-  have hm2 : 2 ≤ p ^ a + 1 := by positivity
+  have hm2 : 2 ≤ p ^ a + 1 := by
+    have hpow : 0 < p ^ a := pow_pos hp.pos _
+    omega
   have hpm : ¬ p ∣ p ^ a + 1 :=
     not_p_dvd_pow_add_one hp (by omega)
   have hrow := q0_row_admissible hp ha
