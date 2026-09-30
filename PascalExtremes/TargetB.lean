@@ -3,7 +3,7 @@ import Mathlib
 
 namespace PascalExtremes
 
-private def q0 (p a : ℕ) : ℕ :=
+def q0 (p a : ℕ) : ℕ :=
   p ^ (2 * a) - p ^ a + 1
 
 private lemma pow_a_lt_pow_two_a {p a : ℕ} (hp : p.Prime) (ha : 1 ≤ a) :
@@ -11,12 +11,12 @@ private lemma pow_a_lt_pow_two_a {p a : ℕ} (hp : p.Prime) (ha : 1 ≤ a) :
   apply Nat.pow_lt_pow_right hp.one_lt
   omega
 
-private lemma q0_pos {p a : ℕ} (hp : p.Prime) (ha : 1 ≤ a) :
+lemma q0_pos {p a : ℕ} (hp : p.Prime) (ha : 1 ≤ a) :
     0 < q0 p a := by
   simp only [q0]
   omega
 
-private lemma q0_lt_pow_two_a {p a : ℕ} (hp : p.Prime) (ha : 1 ≤ a) :
+lemma q0_lt_pow_two_a {p a : ℕ} (hp : p.Prime) (ha : 1 ≤ a) :
     q0 p a < p ^ (2 * a) := by
   have hpow : p ^ a < p ^ (2 * a) :=
     pow_a_lt_pow_two_a hp ha
@@ -30,7 +30,7 @@ private lemma q0_lt_pow_two_a {p a : ℕ} (hp : p.Prime) (ha : 1 ≤ a) :
   simp only [q0]
   omega
 
-private lemma mul_q0_eq_pow_three_add_one
+lemma mul_q0_eq_pow_three_add_one
     {p a : ℕ} (hp : p.Prime) (ha : 1 ≤ a) :
     (p ^ a + 1) * q0 p a = p ^ (3 * a) + 1 := by
   let Q := p ^ a
@@ -61,7 +61,7 @@ private lemma mul_q0_eq_pow_three_add_one
     _ = Q * (Q * Q) + 1 := by rw [hS']
     _ = Q * Q * Q + 1 := by ring
 
-private lemma not_p_dvd_pow_add_one
+lemma not_p_dvd_pow_add_one
     {p a : ℕ} (hp : p.Prime) (ha : 1 ≤ a) :
     ¬ p ∣ p ^ a + 1 := by
   rw [Nat.dvd_iff_mod_eq_zero]
@@ -69,7 +69,7 @@ private lemma not_p_dvd_pow_add_one
   rw [Nat.add_mod, Nat.mod_eq_zero_of_dvd hpPow, zero_add]
   exact Nat.mod_eq_of_lt hp.one_lt
 
-private lemma coprime_pow_two_a_m
+lemma coprime_pow_two_a_m
     {p a : ℕ} (hp : p.Prime) (ha : 1 ≤ a) :
     Nat.Coprime (p ^ (2 * a)) (p ^ a + 1) := by
   rw [Nat.coprime_pow_left_iff (by omega)]
