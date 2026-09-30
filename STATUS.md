@@ -47,7 +47,11 @@ Date: 2026-09-30
   - Focused examples include `T 2 5 = 65`.
   - GitHub Actions builds from a fresh checkout with `lake build` and rejects `sorry`/`admit` in the project Lean sources. The final Stage-5 branch CI is required green before merge.
   - Formalisation details and provenance are in `notes/formalisation-5.md`.
-- **Stage 6 — Palomar: NOT STARTED.**
+- **Stage 6 — Palomar: IN PROGRESS.**
+  - Initial submission at commit `3f234e061d44fcd2ececab1280788e7a39c90822` passed Palomar mechanical verification on 2026-09-30.
+  - Automated review identified one blocking repository-status issue: the public README still described Targets A and B as conjectural and Stages 3–8 as unstarted.
+  - The README has now been corrected to distinguish completed proof/formalisation from pending registration and publication.
+  - Registration has **not** yet occurred; a corrected commit must be submitted as a new Palomar submission with the existing Palomar ID left blank unless the result is already public.
 - **Stage 7 — paper: NOT STARTED.**
 - **Stage 8 — arXiv: NOT STARTED.**
 
@@ -68,4 +72,4 @@ The Lean theorem layer now formalises the Stage-3 argument using Mathlib's Kumme
 
 ## Next action
 
-Run **Stage 6 only: Palomar registration** for the completed Lean theorem layer. Re-verify the current Palomar submission contract before packaging, preserve the exact theorem statements and all prior-art/novelty caveats, and do not begin the research paper or arXiv work during Stage 6.
+Submit the corrected Stage-6 commit to Palomar as a **new submission**, leaving the existing Palomar ID blank unless this result is already in the public registry. Preserve the exact theorem statements and all prior-art/novelty caveats. Do not begin the research paper or arXiv work until registration succeeds.
