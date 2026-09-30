@@ -1,6 +1,11 @@
-import PascalExtremes.Basic
-import Mathlib.Data.Nat.Digits.Lemmas
-import Mathlib.NumberTheory.Padics.PadicVal.Basic
+module
+
+public import PascalExtremes.Basic
+public import Mathlib.Data.Nat.Digits.Lemmas
+public import Mathlib.NumberTheory.Padics.PadicVal.Basic
+
+@[expose] public section
+
 
 namespace PascalExtremes
 

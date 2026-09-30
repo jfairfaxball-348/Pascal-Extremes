@@ -1,6 +1,11 @@
-import PascalExtremes.Kummer
-import Mathlib.Data.Nat.Log
-import Mathlib.Tactic
+module
+
+public import PascalExtremes.Kummer
+public import Mathlib.Data.Nat.Log
+public import Mathlib.Tactic
+
+@[expose] public section
+
 
 namespace PascalExtremes
 

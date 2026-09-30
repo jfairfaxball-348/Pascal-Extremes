@@ -1,4 +1,9 @@
-import Mathlib.Data.Nat.Digits.Lemmas
+module
+
+public import Mathlib.Data.Nat.Digits.Lemmas
+
+@[expose] public section
+
 
 namespace PascalExtremes
 

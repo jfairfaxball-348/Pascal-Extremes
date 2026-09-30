@@ -1,6 +1,11 @@
-import Mathlib.Algebra.GCDMonoid.Finset
-import Mathlib.Data.Nat.Choose.Basic
-import Mathlib.NumberTheory.Padics.PadicVal.Basic
+module
+
+public import Mathlib.Algebra.GCDMonoid.Finset
+public import Mathlib.Data.Nat.Choose.Basic
+public import Mathlib.NumberTheory.Padics.PadicVal.Basic
+
+@[expose] public section
+
 
 namespace PascalExtremes
 

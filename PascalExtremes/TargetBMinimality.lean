@@ -1,6 +1,11 @@
-import PascalExtremes.TargetB
-import PascalExtremes.Scaling
-import Mathlib
+module
+
+public import PascalExtremes.TargetB
+public import PascalExtremes.Scaling
+public import Mathlib
+
+@[expose] public section
+
 
 namespace PascalExtremes
 

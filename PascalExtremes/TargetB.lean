@@ -1,5 +1,10 @@
-import PascalExtremes.TargetAAttainment
-import Mathlib
+module
+
+public import PascalExtremes.TargetAAttainment
+public import Mathlib
+
+@[expose] public section
+
 
 namespace PascalExtremes
 
