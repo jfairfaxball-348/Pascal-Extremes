@@ -1,10 +1,10 @@
-# Session 06 handoff — Stage 6 packaged and verified; registration still blocked
+# Session 06 handoff — Stage 6 submitted; live verification/review pending
 
 Date: 2026-09-30
 
 ## Session result
 
-Stage 6 packaging is complete and the exact candidate passes both ordinary repository CI and Palomar's full predictive verifier. Actual Palomar intake/registration is **not** complete, so the Stage-6 gate is **BLOCKED** and Stage 7 must not start.
+Stage 6 packaging is complete, the exact candidate passes ordinary repository CI and Palomar's full predictive verifier, and the user has now completed real Palomar intake. The live Palomar verification/review/registration process is still pending, so the Stage-6 gate remains **BLOCKED** and Stage 7 must not start.
 
 Authoritative detail: `notes/palomar-packaging-6.md`.
 
@@ -42,31 +42,29 @@ The Comparator actually used is the `lake comparator` bundled with that Lean too
 - Full Palomar predictive preflight: https://github.com/jfairfaxball-348/Pascal-Extremes/actions/runs/36690939932 — `status: pass`, `stage: complete`, no warnings/errors.
 - Lean, NanoDa, and con-ron all accepted the Solution; Comparator reported `Your solution is okay!`.
 
-## Registration blocker
+## Real submission status
 
-The current ordinary-agent protocol requires a temporary repository tag plus a secret GitHub gist carrying Palomar's challenge, followed by `POST /api/verify` and immediate deletion of both artifacts.
+The user completed real Palomar intake at `2026-09-30T10:08:42Z` using the already-approved immutable candidate and Comparator path.
 
-The user has already explicitly approved these intake values:
+- repository: `jfairfaxball-348/Pascal-Extremes`
+- commit: `3f234e061d44fcd2ececab1280788e7a39c90822`
+- Comparator path: `comparator.json`
+- verification run: `36700602189`
+- public run URL: https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/36700602189
+- profile job: success
+- privileged verify job: queued at last check
 
-- repository `jfairfaxball-348/Pascal-Extremes`
-- commit `3f234e061d44fcd2ececab1280788e7a39c90822`
-- Comparator path `comparator.json`
-- authorization relationship `maintainer` ("I am a responsible author or maintainer")
-
-This session's authenticated GitHub connector cannot create/delete tags or secret gists, and its shell has no authenticated `gh`. Palomar forbids replacing those steps with a weaker proof. Therefore no real intake was started and there is no Palomar ID/version to record.
+There is still no Palomar registry ID/version to record.
 
 ## Required continuation
 
 Remain in **Stage 6 only**.
 
-1. Re-read `https://submit.palomar-registry.org/llms.txt` immediately before intake in case the live protocol changed.
-2. From an authenticated `gh` environment with repository-write and gist permissions, call `POST /api/submit` for the four already-approved values above.
-3. Create the exact temporary `palomar-verify-CHALLENGE` tag at the immutable candidate and a secret gist carrying the returned challenge.
-4. Call `POST /api/verify`, then delete the tag and gist immediately.
-5. Monitor the submission at the protocol's recommended cadence. Do not infer review outcome from status names beyond what the API states.
-6. When `GET /api/review` supplies a review and `review_sha256`, show the review to the user and explain that registering will publish it. Palomar explicitly requires a fresh user decision before `POST /register`.
-7. Only after the user explicitly agrees, call `POST /register` with that exact review digest.
-8. Record the real Palomar ID, version, and entry URL in `notes/palomar-packaging-6.md` and `STATUS.md`, commit the update, and only then set the Stage-6 gate to **PROCEED**.
+1. Monitor real verification run `36700602189` and record its final mechanical result.
+2. When Palomar's private review becomes available, inspect it with the submission holder. Do not publish the private review before registration.
+3. Show the review and what registration will publish to the user, and obtain Palomar's required fresh explicit registration decision.
+4. Only after that explicit approval, complete registration.
+5. Record the real Palomar ID, version, and entry URL in `notes/palomar-packaging-6.md` and `STATUS.md`, commit the update, and only then set the Stage-6 gate to **PROCEED**.
 
 Do not begin paper drafting or arXiv work before that successful registration.
 
@@ -76,6 +74,6 @@ Continue the Pascal Extremes project from `jfairfaxball-348/Pascal-Extremes`.
 
 Read `STATUS.md`, `notes/palomar-packaging-6.md`, and `notes/session-06-handoff.md` first. This is still Stage 6 only; do not begin the paper or arXiv work.
 
-The Palomar package at immutable commit `3f234e061d44fcd2ececab1280788e7a39c90822` already passes repository Lean CI and the full predictive Palomar verifier. Re-read the live agent protocol at `https://submit.palomar-registry.org/llms.txt`, then complete ordinary Palomar intake using an authenticated `gh` environment that can create/delete the required temporary repository tag and secret gist. Use `comparator.json` and authorization relationship `maintainer`; the user already explicitly confirmed those intake values.
+The Palomar package at immutable commit `3f234e061d44fcd2ececab1280788e7a39c90822` already passes repository Lean CI and the full predictive Palomar verifier, and real intake was submitted at `2026-09-30T10:08:42Z`. Live Palomar verification run `36700602189` is the authoritative next object to monitor.
 
-Do not change or repack the candidate unless the live contract has materially changed. Monitor verification/review at the protocol's recommended cadence. Once the private review and its `review_sha256` are available, show the review to the user and obtain the protocol-required fresh explicit decision before registering. If the user approves, call `POST /register`, record the real Palomar ID/version/entry URL in `notes/palomar-packaging-6.md` and `STATUS.md`, commit, and finish Stage 6 with **PROCEED**. If any real blocker remains, record it precisely and finish **BLOCKED**. Never fabricate a registry identifier.
+Do not change or repack the candidate unless the live contract has materially changed. Monitor the real verification/review flow. Once the private review and its `review_sha256` are available, show the review to the user and obtain the protocol-required fresh explicit decision before registering. If the user approves, complete registration, record the real Palomar ID/version/entry URL in `notes/palomar-packaging-6.md` and `STATUS.md`, commit, and finish Stage 6 with **PROCEED**. If any real blocker remains, record it precisely and finish **BLOCKED**. Never fabricate a registry identifier.

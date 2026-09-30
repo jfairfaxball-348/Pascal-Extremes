@@ -4,9 +4,9 @@ Date: 2026-09-30
 
 ## Gate
 
-**BLOCKED — packaging and full predictive verification are complete, but no real Palomar registration has been created.**
+**BLOCKED — packaging, predictive verification, and real Palomar intake are complete, but verification/review/registration have not yet finished.**
 
-The unresolved issue is operational, not mathematical or Comparator-related: Palomar's ordinary agent intake requires a temporary repository tag and a secret GitHub gist. The authenticated GitHub connector available in this session can edit repository content and branches but exposes neither tag creation/deletion nor gist creation/deletion, and the local shell has no authenticated `gh`. Palomar explicitly forbids substituting a weaker proof of write access. No Palomar ID, version, or entry link is claimed.
+The previous write-access-proof blocker was cleared by the user. The real submission was accepted on 2026-09-30T10:08:42Z for `jfairfaxball-348/Pascal-Extremes@3f234e061d44fcd2ececab1280788e7a39c90822` with `comparator.json`. Palomar dispatched verification run `36700602189`. The `profile` job has succeeded; the privileged `verify` job is currently queued. No Palomar registry ID, version, or entry link is claimed yet.
 
 ## Current contract pins checked
 
@@ -129,36 +129,30 @@ An early repository build, run 36689271330, also exposed a module-migration tran
 
 No claim of uniqueness, historical priority, or novelty is inferred from Lean verification or Palomar preflight.
 
-## Registration attempt and exact blocker
+## Real submission and current state
 
-After the full predictive preflight passed, the current Palomar agent protocol at `https://submit.palomar-registry.org/llms.txt` was checked. Ordinary agent intake requires, in one sitting:
-
-1. `POST /api/submit` with the immutable repository/commit/config and authorization relationship;
-2. creation of `refs/tags/palomar-verify-CHALLENGE` at that commit;
-3. creation of a **secret** GitHub gist whose `palomar.txt` contains the exact challenge;
-4. `POST /api/verify` with the pending secret and gist id;
-5. deletion of both temporary artifacts.
-
-The user explicitly confirmed the four intake values:
+After the full predictive preflight passed, the user completed the real Palomar intake for the exact approved values:
 
 - repository: `jfairfaxball-348/Pascal-Extremes`
 - commit: `3f234e061d44fcd2ececab1280788e7a39c90822`
 - Comparator configuration: `comparator.json`
 - authorization relationship: `I am a responsible author or maintainer` / API value `maintainer`
+- submitted: `2026-09-30T10:08:42Z`
 
-This session could not perform steps 1–5 because:
+Palomar dispatched:
 
-- the available authenticated GitHub connector exposes no tag-creation/deletion operation;
-- it exposes no secret-gist creation/deletion operation;
-- the shell has no `gh` executable/authenticated GitHub session;
-- the web-search tool cannot make authenticated state-changing Palomar/GitHub API calls.
+- verification run: https://github.com/PalomarRegistry/PalomarSubmission/actions/runs/36700602189
+- verifier workflow commit: `65f0154ed776cd26c224254aa57b379137f28b0d`
+- workflow name: `Verify submission qcaecxdihh4i`
+- `profile` job: completed successfully
+- privileged `verify` job: queued at the last check
 
-Palomar explicitly says not to substitute a weaker proof such as a commit status or declared login. Accordingly, no intake was fabricated. A registry search found no existing Pascal Extremes entry, and no Palomar submission ID, access token, registry ID, version, or entry URL is recorded.
+This is the real registry verification path, not the repository's predictive preflight. No registry ID/version is recorded until the real run, review, and final registration complete.
 
 ## Next Stage-6 action
 
-Use an authenticated `gh` environment with repository-write and gist capability, re-read the live agent protocol, and perform the exact five-step/six-call proof against the immutable candidate `3f234e061d44fcd2ececab1280788e7a39c90822`. Do not change that commit unless the contract changes and requires a new package.
+Monitor real verification run `36700602189`. Once mechanical verification finishes, continue through Palomar's private review flow. The review is private to the submission holder until registration; do not publish it prematurely.
 
-After mechanical verification and editorial review, fetch the private review with the submission access token. Palomar's protocol requires showing that review to the user and obtaining a fresh explicit decision before `POST /register`, because registration publishes the review and creates the permanent registry record.
+Palomar requires showing the completed review to the user and obtaining a fresh explicit registration decision before permanent registration. Only after successful registration should the real Palomar ID, version, and public entry URL be recorded and the Stage-6 gate changed to **PROCEED**.
 
 Do not begin Stage 7 until a real registry response supplies the Palomar ID and version.
