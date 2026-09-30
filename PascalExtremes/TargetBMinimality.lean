@@ -742,4 +742,87 @@ theorem targetB_lower_multiplier_witness
             simpa [hpP] using hmhLt)
       simpa [d] using hfb
 
+
+/-- Every admissible row strictly below the proposed Target-B row is
+non-extremal. -/
+theorem targetB_lower_nonattainment
+    {p a N : ℕ} (hp : p.Prime) (ha : 2 ≤ a)
+    (hrow : AdmissibleRow (p ^ a + 1) N)
+    (hNlt : N < p ^ (3 * a) + 1) :
+    padicValNat p (G N (p ^ a + 1)) ≤ a := by
+  let m := p ^ a + 1
+  have hmpos : 0 < m := by
+    dsimp [m]
+    omega
+  rcases hrow.2 with ⟨q, hN⟩
+  have hq2 : 2 ≤ q := by
+    have hrowlt : m < m * q := by
+      simpa [m, hN] using hrow.1
+    by_contra h
+    have hqLt : q < 2 := by omega
+    interval_cases q <;> simp_all
+  have hq0Eq :
+      m * q0 p a = p ^ (3 * a) + 1 := by
+    dsimp [m]
+    exact mul_q0_eq_pow_three_add_one hp (by omega)
+  have hqlt : q < q0 p a := by
+    have hmul : m * q < m * q0 p a := by
+      rw [hq0Eq]
+      simpa [m, hN] using hNlt
+    exact (Nat.mul_lt_mul_left hmpos).mp hmul
+  obtain ⟨d, hdpos, hdlt, hdval⟩ :=
+    targetB_lower_multiplier_witness hp ha hq2 hqlt
+  let k := m * d
+  have hk : Admissible N m k := by
+    refine ⟨Nat.mul_pos hmpos hdpos, ?_, dvd_mul_right m d⟩
+    rw [hN]
+    dsimp [k]
+    exact (Nat.mul_lt_mul_left hmpos).2 hdlt
+  have hgle :
+      padicValNat p (G N m) ≤ padicValNat p (N.choose k) :=
+    padicVal_G_le_choose hmpos hrow.1 hp hk
+  have hchoose :
+      padicValNat p (N.choose k) ≤ a := by
+    rw [hN]
+    simpa [m, k] using hdval
+  simpa [m] using hgle.trans hchoose
+
+/-- Target B: the first Target-A extremal row for `m = p^a+1` is
+`p^(3a)+1`. -/
+theorem targetB
+    {p a : ℕ} (hp : p.Prime) (ha : 2 ≤ a) :
+    T p (p ^ a + 1) = p ^ (3 * a) + 1 := by
+  have hm2 : 2 ≤ p ^ a + 1 := by
+    have hpow : 0 < p ^ a := pow_pos hp.pos _
+    omega
+  have hpm : ¬ p ∣ p ^ a + 1 :=
+    not_p_dvd_pow_add_one hp (by omega)
+  have hr : rP p (p ^ a + 1) = a + 1 :=
+    rP_pow_add_one hp.one_lt (by omega)
+  have hrow0 := q0_row_admissible hp ha
+  have hatt := targetB_attainment hp ha
+  have hmem0 :
+      p ^ (3 * a) + 1 ∈ extremalRows p (p ^ a + 1) := by
+    refine ⟨hrow0, ?_⟩
+    simpa [hr] using hatt
+  have hTle :
+      T p (p ^ a + 1) ≤ p ^ (3 * a) + 1 :=
+    (T_isLeast hp hm2 hpm).2 hmem0
+  have hTmem :=
+    T_mem_extremalRows hp hm2 hpm
+  have hN0leT :
+      p ^ (3 * a) + 1 ≤ T p (p ^ a + 1) := by
+    by_contra hnot
+    have hTlt :
+        T p (p ^ a + 1) < p ^ (3 * a) + 1 :=
+      Nat.lt_of_not_ge hnot
+    have hlower :=
+      targetB_lower_nonattainment hp ha hTmem.1 hTlt
+    have hval :
+        padicValNat p (G (T p (p ^ a + 1)) (p ^ a + 1)) = a + 1 := by
+      simpa [hr] using hTmem.2
+    rw [hval] at hlower
+    omega
+  exact Nat.le_antisymm hTle hN0leT
+
 end PascalExtremes
