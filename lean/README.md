@@ -23,6 +23,6 @@ lake build
 test "$(grep -R -E '\b(sorry|admit)\b' --include='*.lean' PascalExtremes PascalExtremes.lean | wc -l)" -eq 0
 ```
 
-GitHub Actions checks the same build and explicit proof-gap scan. Only `.lake/packages` is cached; the repository's own `.lake/build` is not cached, so the project build occurs from a fresh checkout.
+GitHub Actions checks the same build and explicit proof-gap scan from a fresh checkout; no repository build output is restored between runs.
 
 See `notes/formalisation-5.md` for the theorem map, proof architecture, provenance, and trust-boundary notes.
