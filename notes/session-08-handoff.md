@@ -102,6 +102,8 @@ The PDF inspection confirmed:
 - page layout has no clipping or overlap;
 - the PDF contains the live Palomar link for version 1.
 
+Bibliography metadata was rechecked against the Stage-7 audit trail and the currently accessible authoritative records used there (including the current McTague/Wu records and publisher/index records for the journal articles and classical sources). No contradictory metadata or correction requiring a source change was found. The Chung–Yang 2026 bibliographic record remains the publisher metadata recorded in the documented audit; the inability to inspect its full theorem text remains a novelty-scope caveat, not a bibliographic ambiguity.
+
 ## Final title
 
 **Sharp $p$-adic Extrema and Least Extremal Rows for Restricted Binomial GCDs**
