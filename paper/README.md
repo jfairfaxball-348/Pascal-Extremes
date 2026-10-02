@@ -2,6 +2,14 @@
 
 `main.tex` is the Stage-7 research-paper source and `references.bib` is its BibTeX database.
 
+## Public paper record
+
+The paper is publicly available as **arXiv:2610.01328v1 [math.NT]**:
+
+https://arxiv.org/abs/2610.01328
+
+arXiv records version 1 as submitted on **2026-10-01**. The public record lists **13 pages, no figures** and a **CC BY 4.0** license. The repository source remains the provenance source for the Stage-7 manuscript and the exact Stage-8 upload package under `arxiv/stage-08/`.
+
 A standard TeX installation can build the paper with:
 
 ```sh
