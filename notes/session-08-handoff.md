@@ -1,6 +1,25 @@
-# Session 08 handoff — final arXiv preparation and submission boundary
+# Session 08 handoff — final arXiv preparation and submission record
 
-Date: 2026-09-30
+Date: 2026-09-30  
+Post-submission update: 2026-10-02
+
+## Post-submission completion update
+
+The Stage-8 preparation recorded below was subsequently carried through in the author's authenticated arXiv account.
+
+- Public record: **arXiv:2610.01328 [math.NT]**
+- Version: **v1**
+- Public URL: https://arxiv.org/abs/2610.01328
+- arXiv submission date: **2026-10-01**
+- Submission timestamp shown by arXiv: **2026-10-01 08:58:22 UTC**
+- Title: **Sharp $p$-adic Extrema and Least Extremal Rows for Restricted Binomial GCDs**
+- Author: **John Fairfax-Ball**
+- Comments: **13 pages, no figures**
+- Primary subject: **Number Theory (math.NT)**
+- MSC: **11B65 (Primary)**
+- License: **Creative Commons Attribution 4.0 International (CC BY 4.0)**
+
+This update supersedes the submission-status and license placeholders that were necessarily unresolved at the end of the original Stage-8 preparation session. The preflight record below is retained as historical provenance for the exact source bundle and checks performed before submission.
 
 ## Stage-8 result
 
@@ -144,9 +163,9 @@ None selected.
 
 ## License
 
-**NOT SELECTED.**
+**Creative Commons Attribution 4.0 International (CC BY 4.0).**
 
-The author/submitter must choose the license in arXiv and certify the right to grant it. No license choice is recorded here.
+The public arXiv record for v1 links to the CC BY 4.0 license. This was selected during the authenticated submission process; it was not guessed during the preflight session.
 
 ## Final theorem-level consistency check
 
@@ -203,24 +222,10 @@ This is verification/provenance evidence only. It is not evidence of historical 
 
 ## arXiv submission status
 
-**NOT SUBMITTED FROM THIS SESSION.**
+**POSTED — arXiv:2610.01328v1 [math.NT].**
 
-No arXiv identifier exists from this session.
+Public record: https://arxiv.org/abs/2610.01328
 
-No license has been selected.
+arXiv lists the paper as submitted on **2026-10-01**, with the v1 timestamp **Thu, 1 Oct 2026 08:58:22 UTC**. The public title, author, abstract, page/figure comment, and primary category match the final Stage-8 metadata prepared above. The selected license is **CC BY 4.0**.
 
-No endorsement or moderation status is known.
-
-The remaining direct user steps are:
-
-1. Sign in to the author's arXiv account and choose **START NEW SUBMISSION**.
-2. Upload the prepared `arxiv-stage-08.tar.gz` bundle (or the three exact files from `arxiv/stage-08/`).
-3. Run **Check Files** and verify that arXiv detects PDFLaTeX and `main.tex` as the top-level file. Do not accept deletion of `main.bbl`; it is intentional.
-4. Confirm successful arXiv compilation and inspect the arXiv-generated PDF.
-5. Enter the title, author, abstract, optional `13 pages, no figures` comment, and primary category `math.NT`; do not invent a secondary category, report number, journal reference, or DOI.
-6. If arXiv reports an endorsement requirement, complete that requirement through the account workflow.
-7. Choose the license and make the required author/right-to-submit certification after reviewing the arXiv terms.
-8. Perform the final **Submit Article** confirmation.
-9. Only after arXiv returns a submission identifier/status should the repository be updated with that identifier/status and the license actually chosen.
-
-Until step 8 succeeds, do not record an arXiv submission date or identifier.
+The project workflow is therefore complete through Stage 8. No mathematical theorem, proof, Lean formalisation, Palomar statement, or novelty/priority caveat was changed by the authenticated submission. Any later arXiv revision should be recorded as a new version while retaining this v1 provenance record.
