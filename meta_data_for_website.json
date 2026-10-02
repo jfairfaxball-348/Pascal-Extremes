@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "title": "Pascal Extremes",
+  "slug": "pascal-extremes",
+  "status": "arXiv preprint",
+  "headline": "Sharp p-adic extrema and least extremal rows for restricted binomial GCDs are Lean-verified and public as arXiv:2610.01328.",
+  "year": 2026,
+  "date": "2026-10-01",
+  "description": "This project studies sharp p-adic valuations of restricted binomial GCDs G(N;m), where lower indices are multiples of m. It proves that for every prime p with p∤m the maximum valuation over admissible rows is exactly r_p(m), constructs an attaining row, and for m=p^a+1 with a≥2 proves the exact least extremal row $T_p(p^a+1)=p^{3a}+1$; no general closed formula for T_p(m) is claimed. All stated target theorems are formally verified in Lean, with finite experiments retained only as independent checks. A documented literature audit located no equivalent theorem for the remaining general results beyond attributed prior subcases, but this is a negative-search finding and theorem-level non-overlap with Chung–Yang (2026) remains unresolved because its full text was not openly inspectable.",
+  "topics": [
+    "Number theory",
+    "Binomial coefficients",
+    "Greatest common divisors",
+    "p-adic valuations",
+    "Extremal problems",
+    "Lean 4",
+    "Mathlib"
+  ],
+  "github_url": "https://github.com/jfairfaxball-348/Pascal-Extremes",
+  "palomar_id": "PALOMAR-2026-09-30-000033",
+  "palomar_url": "https://palomar-registry.org/entry.html?id=PALOMAR-2026-09-30-000033&version=1",
+  "paper_url": "https://arxiv.org/pdf/2610.01328",
+  "arxiv_id": "2610.01328",
+  "arxiv_url": "https://arxiv.org/abs/2610.01328",
+  "doi": null,
+  "formalisation_system": "Lean 4 / Mathlib",
+  "verification": "Lean 4 / Mathlib formalises Target A's universal upper bound, constructive attainment and exact maximum, establishes existence and minimality of the least extremal row T, and formalises Target B's target-row valuation plus strict lower-row non-attainment, yielding T p (p^a+1) = p^(3a)+1 for every prime p and a≥2. Repository CI builds the project from a fresh checkout and rejects sorry/admit in project Lean sources. Palomar entry PALOMAR-2026-09-30-000033, version 1, registered the advertised Target-A/Target-B theorem surface after successful Comparator and kernel verification. The Stage-2 seven-case pilot was independently checked by a Kummer carry/borrow DP against direct Legendre and integer binomial/GCD implementations; those computations are finite evidence only and remain outside the proof and formal trust boundary.",
+  "attribution": "John Fairfax-Ball is the author of the project, paper and Lean formalisation. Chai Wah Wu's 2026 work defines the exact selected-binomial-GCD family, while Carl McTague's work contains the p≡1 (mod m) Target-A subcase and the known (p,m,N)=(2,3,6) case; Kummer's theorem and Mathlib's p-adic/digit infrastructure are prior tools. Compatible low-level Lean infrastructure was adapted with attribution from the Apache-2.0 Pascal Minus-One predecessor. The documented September 2026 literature audit located no equivalent result for the remaining general Target-A theorem or Target B, subject to the unresolved Chung–Yang 2026 full-text caveat; this is not an unconditional historical-priority claim.",
+  "original_source": "Research continuation of John Fairfax-Ball's Pascal Minus-One GCD project (2026). Core prior mathematical context: Chai Wah Wu, “Computing the Greatest Common Divisor of Binomial Coefficients C(mn,mk)”, arXiv:2606.20940v2 (2026), defines exactly the selected-GCD family; Carl McTague, “On the Greatest Common Divisor of Binomial Coefficients C(n,q), C(n,2q), C(n,3q), ...”, American Mathematical Monthly 124(4) (2017), 353–356, corrected arXiv:1510.06696v5, contains the p≡1 (mod m) overlap and the (2,3,6) example.",
+  "featured": true,
+  "additional_links": [
+    {
+      "label": "Literature / novelty audit",
+      "url": "https://github.com/jfairfaxball-348/Pascal-Extremes/blob/main/notes/prior-art-audit-4.md"
+    },
+    {
+      "label": "Predecessor project: Pascal Minus-One GCD",
+      "url": "https://github.com/jfairfaxball-348/pascal-minus-one"
+    },
+    {
+      "label": "McTague prior work",
+      "url": "https://arxiv.org/abs/1510.06696"
+    },
+    {
+      "label": "Wu prior work",
+      "url": "https://arxiv.org/abs/2606.20940"
+    },
+    {
+      "label": "Chung–Yang 2026 adjacent work",
+      "url": "https://doi.org/10.1007/s00009-026-03202-3"
+    }
+  ]
+}
