@@ -17,13 +17,13 @@ For a prime `p`, the project studies the maximum possible value of `v_p(G(N;m))`
 - **Stage 3 — rigorous informal proof: COMPLETE.** Target A is proved in its stated generality, and Target B is proved for every prime `p` and every `a >= 2`.
 - **Stage 4 — final theorem-level novelty audit: COMPLETE. Gate: PROCEED.** Known overlaps are recorded and attributed; no global novelty or priority claim is made.
 - **Stage 5 — Lean formalisation: COMPLETE. Gate: PROCEED.** The selected Target A and Target B statements, including extremal-row existence/minimality, are formalised and build without `sorry`/`admit`.
-- **Stage 6 — Palomar registration: IN PROGRESS.** The first Palomar submission passed mechanical verification on 2026-09-30. Automated editorial review requested this README status correction before a corrected commit is submitted; the result is **not yet registered**.
-- **Stage 7 — paper: NOT STARTED.**
-- **Stage 8 — arXiv: NOT STARTED.**
+- **Stage 6 — Palomar registration: COMPLETE. Gate: PROCEED.** Registered as **PALOMAR-2026-09-30-000033**, version **1**.
+- **Stage 7 — paper: COMPLETE. Gate: PROCEED.** The final manuscript is 13 pages and is maintained under `paper/`.
+- **Stage 8 — arXiv submission/public posting: COMPLETE.** The paper is public as **arXiv:2610.01328 [math.NT]**, version **v1**, submitted on **2026-10-01**, under **CC BY 4.0**: https://arxiv.org/abs/2610.01328
 
-The completed proof and Lean stages are distinct from registration and publication. Experiments are not used as proof evidence. Novelty/priority is not asserted: the documented Stage-4 search found no equivalent result for the surviving exact statements, while the recent Chung–Yang 2026 paper remains an explicit residual caveat because its full theorem text was not openly inspectable during the audit.
+Formal verification, Palomar registration, and arXiv publication are distinct provenance records. Experiments are not used as proof evidence. Novelty/priority is not asserted: the documented Stage-4 search found no equivalent result for the surviving exact statements, while the recent Chung–Yang 2026 paper remains an explicit residual caveat because its full theorem text was not openly inspectable during the audit.
 
-See `STATUS.md`, `notes/targets.md`, `notes/proof.md`, `notes/prior-art-audit-4.md`, `notes/formalisation-5.md`, and `notes/palomar-packaging-6.md`.
+See `STATUS.md`, `notes/targets.md`, `notes/proof.md`, `notes/prior-art-audit-4.md`, `notes/formalisation-5.md`, `notes/palomar-packaging-6.md`, `notes/session-08-handoff.md`, and `paper/README.md`.
 
 ## Provenance
 
