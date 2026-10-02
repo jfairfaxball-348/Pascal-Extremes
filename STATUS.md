@@ -1,6 +1,6 @@
 # Project status
 
-Date: 2026-09-30
+Date: 2026-10-02
 
 ## Stage gates
 
@@ -61,18 +61,15 @@ Date: 2026-09-30
   - Prior-art wording preserves Wu's exact-family status, McTague's known overlap and `(2,3,6)` example, and the unresolved Chung–Yang 2026 full-text caveat.
   - The formal-verification section records **PALOMAR-2026-09-30-000033**, version **1**, as verification/provenance evidence only.
   - Full Stage-7 build/audit details are in `notes/session-07-handoff.md`.
-- **Stage 8 — arXiv preparation: COMPLETE TO THE AUTHENTICATED SUBMISSION BOUNDARY.**
-  - Current official arXiv Submission 1.5 requirements were rechecked on 2026-09-30 before packaging.
-  - The exact upload directory is `arxiv/stage-08/`, containing only `main.tex`, `references.bib`, and the matching generated `main.bbl`.
-  - Including both bibliography files is deliberate: current arXiv supports direct `.bib` processing but uses a matching `.bbl` preferentially when present.
-  - The exact bundle passed a clean TeX Live 2025/PDFLaTeX preflight both by regenerating BibTeX and by compiling from the packaged `main.bbl`; the final PDF is 13 pages with resolved citations/references and no box warnings.
-  - Rendered inspection found the two bibliography build routes pixel-identical on all 13 pages. The title, abstract, equations, theorem numbering, references, embedded fonts, page layout, and Palomar hyperlink were rechecked.
-  - The final theorem-level consistency check against `notes/proof.md`, the Lean theorem layer, and the Palomar statement surface found no mathematical discrepancy. Stage 8 made no theorem-scope or proof changes.
-  - Primary arXiv category: `math.NT`. No secondary category was selected.
-  - **No arXiv license has been selected.** License choice and right-to-submit certification are direct submitter actions and were not guessed.
-  - **No arXiv submission was created in this session.** This environment has no authenticated arXiv submission action/browser, so no arXiv identifier, submission date, endorsement status, moderation status, or acceptance status exists to record.
-  - The remaining user action is to log in to arXiv, upload the prepared bundle, verify arXiv's own compile/preview, enter the prepared metadata, choose/certify the license, and perform the final Submit Article confirmation.
-  - Full package hashes, CI run IDs, title/abstract, category, Palomar/provenance record, literature caveats, and exact remaining submission steps are in `notes/session-08-handoff.md`.
+- **Stage 8 — arXiv submission/public posting: COMPLETE.**
+  - The exact source bundle prepared under `arxiv/stage-08/` passed the clean TeX Live 2025/PDFLaTeX preflight recorded in `notes/session-08-handoff.md`.
+  - The article is publicly posted as **arXiv:2610.01328 [math.NT]**, version **v1**: https://arxiv.org/abs/2610.01328
+  - arXiv records the submission date as **2026-10-01** (submission timestamp: 2026-10-01 08:58:22 UTC).
+  - Public metadata matches the final repository manuscript: **Sharp $p$-adic Extrema and Least Extremal Rows for Restricted Binomial GCDs**, by **John Fairfax-Ball**, with comment **13 pages, no figures**.
+  - The public arXiv record identifies the license as **Creative Commons Attribution 4.0 International (CC BY 4.0)**.
+  - Primary category: `math.NT` (Number Theory); MSC: `11B65` (Primary).
+  - The public posting does not change the theorem scope, proof, formalisation, Palomar record, or Stage-4 novelty caveats.
+  - The Stage-8 handoff now contains a post-submission completion record as well as the original preflight/submission-boundary history.
 
 ## Claim status
 
@@ -84,6 +81,7 @@ Date: 2026-09-30
   \]
 - **Exceptional T_2(3)=6:** known from McTague's explicit example plus admissibility, not a candidate contribution.
 - **Novelty / uniqueness:** **not established.** The Stage-4 documented search located no equivalent result for the surviving exact statements, but this is only a negative search. Chung–Yang 2026 remains an explicit residual caveat because its full theorem text was not openly inspectable.
+- **Paper/publication:** **posted** as **arXiv:2610.01328v1 [math.NT]** on 2026-10-01, under CC BY 4.0.
 
 ## Proof trust boundary
 
@@ -91,4 +89,4 @@ The Lean theorem layer now formalises the Stage-3 argument using Mathlib's Kumme
 
 ## Next action
 
-Complete the direct authenticated arXiv submission using the exact prepared bundle recorded in `notes/session-08-handoff.md`. Do not record a license, arXiv identifier, submission date, endorsement result, moderation result, or announcement status until arXiv actually supplies it.
+The eight-stage project workflow is complete. Maintain the repository as the durable provenance record for the proof, formalisation, Palomar registration, and arXiv posting. Future changes should be limited to genuine corrections, errata, or a deliberately prepared later arXiv version; any such change should preserve the documented prior-art caveats and identify the affected version explicitly.
